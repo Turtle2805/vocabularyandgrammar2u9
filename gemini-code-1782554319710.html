@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bản Thiết Kế Bài Tập Tiếng Anh 9 - Ms Lê Hằng English</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght=400;700;900&family=Quicksand:wght=500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8854C0;
+            --accent-yellow: #FDCB6E;
+            --accent-teal: #00C9A7;
+            --correct-color: #00D26A;
+            --wrong-color: #FF4757;
+            --card-bg: #ffffff;
+            --text-main: #2D3436;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Quicksand', 'Nunito', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #8854C0, #FDCB6E, #00C9A7, #FF7675);
+            background-size: 400% 400%;
+            animation: gradientAnimation 12s ease infinite;
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .bg-pattern {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; opacity: 0.18;
+        }
+
+        .header-container {
+            text-align: center;
+            padding: 20px 10px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header-container h5 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            font-weight: 700;
+            background: rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 20px;
+        }
+
+        .warning-box {
+            background: #ffffff;
+            color: #2D3436;
+            max-width: 680px;
+            margin: 10px auto;
+            padding: 20px;
+            border-radius: 24px;
+            border: 4px solid var(--accent-yellow);
+            box-shadow: 0 8px 0 var(--accent-yellow);
+            text-align: center;
+        }
+
+        .warning-box h3 {
+            margin-top: 0;
+            color: #E67E22;
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .warning-box p {
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 6px 0;
+            font-weight: 700;
+        }
+
+        .scroll-reminder {
+            color: #8854C0;
+            font-style: italic;
+            animation: bounce 1.4s infinite;
+            display: inline-block;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .progress-container {
+            max-width: 720px;
+            margin: 15px auto;
+            padding: 0 15px;
+        }
+        .progress-bar-wrapper {
+            background: rgba(255,255,255,0.35);
+            border-radius: 15px;
+            height: 16px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .progress-bar {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, #00D26A, #00C9A7);
+            border-radius: 15px;
+            transition: width 0.4s ease;
+        }
+
+        .quiz-container {
+            max-width: 720px;
+            margin: 0 auto 40px auto;
+            padding: 0 15px;
+        }
+
+        .quiz-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+            border: 3px solid rgba(0,0,0,0.03);
+            position: relative;
+        }
+
+        .category-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 14px;
+            font-size: 12px;
+            font-weight: 900;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+
+        .option-btn {
+            background: #ffffff;
+            border: 2px solid #E4E7EB;
+            border-radius: 18px;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 0 #E4E7EB;
+            transition: all 0.12s ease;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            transform: scale(1.015) translateY(-2px);
+            box-shadow: 0 7px 0 #CED6E0;
+            border-color: #A4B0BE;
+        }
+
+        .option-btn:active:not(.disabled) {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #CED6E0;
+        }
+
+        .option-prefix {
+            background: #F1F2F6;
+            border-radius: 50%;
+            width: 28px; height: 28px;
+            display: inline-flex;
+            align-items: center; justify-content: center;
+            margin-right: 12px;
+            font-weight: 900;
+            color: #57606F;
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct {
+            background-color: var(--correct-color) !important;
+            color: white !important;
+            border-color: #00A854 !important;
+            box-shadow: 0 5px 0 #00A854 !important;
+        }
+        .option-btn.correct .option-prefix {
+            background: rgba(255,255,255,0.35) !important;
+            color: white !important;
+        }
+
+        .option-btn.wrong {
+            background-color: var(--wrong-color) !important;
+            color: white !important;
+            border-color: #D63031 !important;
+            box-shadow: 0 5px 0 #D63031 !important;
+        }
+        .option-btn.wrong .option-prefix {
+            background: rgba(255,255,255,0.35) !important;
+            color: white !important;
+        }
+
+        .shake { animation: shakeAnim 0.4s ease-in-out; }
+        @keyframes shakeAnim {
+            0%, 100% { transform: translateX(0); }
+            25%, 75% { transform: translateX(-6px); }
+            50% { transform: translateX(6px); }
+        }
+
+        .gap-sentence {
+            font-size: 16px; line-height: 2.2; font-weight: 700;
+            margin-bottom: 18px; background: #F8F9FA;
+            padding: 15px; border-radius: 16px;
+            border-left: 5px solid var(--primary-color);
+        }
+        .gap-blank {
+            display: inline-block; min-width: 110px; height: 34px;
+            line-height: 30px; background: #FFEAA7;
+            border: 2px dashed #FDCB6E; border-radius: 10px;
+            text-align: center; cursor: pointer; color: #D63031;
+            padding: 0 12px; margin: 0 6px; vertical-align: middle;
+            transition: all 0.2s;
+        }
+        .gap-blank:hover { background: #FFF2CC; transform: scale(1.04); }
+        .gap-blank.filled-correct { background: var(--correct-color); color: white; border-style: solid; border-color: #00A854; }
+        .gap-blank.filled-wrong { background: var(--wrong-color); color: white; border-style: solid; border-color: #D63031; }
+
+        .explanation-box {
+            margin-top: 18px; padding: 18px;
+            background-color: #F9F2FF; border-left: 6px solid var(--primary-color);
+            border-radius: 12px; font-size: 14px; line-height: 1.6;
+            display: none; animation: fadeIn 0.35s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .exp-title { color: var(--primary-color); font-weight: 900; margin-bottom: 8px; font-size: 15px; }
+
+        .popup-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.45); z-index: 1000;
+            display: none; align-items: center; justify-content: center;
+        }
+        .popup-content {
+            background: white; padding: 25px; border-radius: 24px;
+            max-width: 90%; width: 400px; box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+            text-align: center; border: 4px solid var(--primary-color);
+            animation: popScale 0.2s ease-out;
+        }
+        @keyframes popScale { from { transform: scale(0.75); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .popup-title { font-weight: 900; font-size: 16px; margin-bottom: 15px; color: var(--primary-color); }
+        .popup-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-height: 250px; overflow-y: auto; padding: 5px; }
+        .popup-opt-btn { background: #F1F2F6; border: 2px solid #CED6E0; padding: 10px; font-weight: 700; border-radius: 12px; cursor: pointer; box-shadow: 0 3px 0 #CED6E0; font-size: 13px; }
+        .popup-opt-btn:hover { background: #E4E7EB; }
+
+        .submit-btn-wrapper { text-align: center; margin: 40px 0; }
+        .submit-all-btn { background: #FF7675; color: white; border: none; border-radius: 25px; padding: 15px 45px; font-size: 18px; font-weight: 900; cursor: pointer; box-shadow: 0 7px 0 #E25E5E; transition: all 0.2s; }
+        .submit-all-btn:hover { transform: scale(1.04) translateY(-2px); box-shadow: 0 9px 0 #E25E5E; }
+
+        .result-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; align-items: center; justify-content: center; }
+        .result-box { background: white; padding: 35px; border-radius: 32px; max-width: 520px; width: 90%; text-align: center; border: 6px solid var(--accent-teal); }
+        .result-score { font-size: 45px; font-weight: 900; color: var(--primary-color); margin: 12px 0; }
+        .result-comment { font-size: 15px; line-height: 1.6; font-weight: 700; color: #2D3436; background: #F1F2F6; padding: 15px; border-radius: 16px; margin-bottom: 20px; }
+        .close-result-btn { background: var(--accent-teal); color: white; border: none; padding: 12px 30px; border-radius: 20px; font-weight: 900; cursor: pointer; box-shadow: 0 5px 0 #00A387; }
+
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1500; pointer-events: none; }
+        u { text-decoration: underline; color: #E74C3C; font-weight: 900; }
+        b { color: #2D3436; }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <svg class="bg-pattern" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <defs>
+            <pattern id="shapes" width="100" height="100" patternUnits="userSpaceOnUse">
+                <path d="M20,5 L23,13 L32,13 L25,18 L27,27 L20,22 L13,27 L15,18 L8,13 L17,13 Z" fill="#FFF" opacity="0.35" transform="translate(10,10) scale(0.5)"/>
+                <circle cx="60" cy="60" r="5" fill="#FFF" opacity="0.4"/>
+                <path d="M70,20 C73,15 82,15 85,20 C89,19 95,24 93,29 C96,34 91,40 85,38 C82,42 73,42 70,38 C65,39 61,33 64,29 C61,24 66,19 70,20 Z" fill="#FFF" opacity="0.25" transform="translate(-20,10) scale(0.5)"/>
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#shapes)" />
+    </svg>
+
+    <div class="header-container">
+        <h5>Giáo viên tạo: Ms Lê Hằng English</h5>
+        <div class="warning-box">
+            <h3>⚠️ LỜI NHẮC CỰC KỲ QUAN TRỌNG ⚠️</h3>
+            <p>Chỉ có đọc kỹ giải thích ngay sau mỗi câu, sau đó ghi lại từ vựng/cấu trúc mới vào vở để học thì mới thực sự giỏi lên.</p>
+            <p>Làm cho xong mà không đọc giải thích hay đọc qua loa không ghi chép thì chỉ tốn thời gian vô ích!</p>
+            <p class="scroll-reminder">* Kéo tới đâu, làm tới đó! *</p>
+        </div>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar-wrapper">
+            <div id="quiz-progress" class="progress-bar"></div>
+        </div>
+    </div>
+
+    <div id="quiz-cards-wrapper" class="quiz-container"></div>
+
+    <div class="submit-btn-wrapper">
+        <button class="submit-all-btn" onclick="showFinalScore()">🎉 NỘP BÀI TỔNG KẾT 🎉</button>
+    </div>
+
+    <div id="gap-popup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="popup-title">Chọn đáp án đúng điền vào ô trống:</div>
+            <div id="popup-options-container" class="popup-options"></div>
+        </div>
+    </div>
+
+    <div id="result-modal" class="result-modal">
+        <div class="result-box">
+            <h2>Kết Quả Của Con</h2>
+            <div id="score-text" class="result-score">0 / 0</div>
+            <div id="comment-text" class="result-comment"></div>
+            <button class="close-result-btn" onclick="closeResultModal()">Đóng và xem lại</button>
+        </div>
+    </div>
+
+    <script>
+        const originalQuestions = [
+  {
+    "id": "ex3_1",
+    "type": "mcq",
+    "category": "Exercise 3: Circle the odd one out",
+    "question": "Find the odd word out among: <b>tram, bus, metro, city</b>",
+    "options": [
+      "tram",
+      "bus",
+      "metro",
+      "city"
+    ],
+    "correctText": "city",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu hỏi:</b> Tìm từ khác biệt nhất so với các từ còn lại.<br>\n            <b>2. Ý nghĩa từ vựng các đáp án:</b><br>\n            - A. tram<br>\n            - B. bus<br>\n            - C. metro<br>\n            - D. city<br>\n            <b>3. Tại sao chọn city?</b> city (n): thành phố. Ba từ kia đều là phương tiện giao thông công cộng: tram (xe điện), bus (xe buýt), metro (tàu điện ngầm).<br>\n            <b>4. Tại sao các từ còn lại không được chọn?</b> Vì chúng thuộc cùng một nhóm từ loại hoặc phạm vi ý nghĩa đồng nhất với nhau.\n        "
+  },
+  {
+    "id": "ex3_2",
+    "type": "mcq",
+    "category": "Exercise 3: Circle the odd one out",
+    "question": "Find the odd word out among: <b>busy, crowd, noisy, modem</b>",
+    "options": [
+      "busy",
+      "crowd",
+      "noisy",
+      "modem"
+    ],
+    "correctText": "crowd",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu hỏi:</b> Tìm từ khác biệt nhất so với các từ còn lại.<br>\n            <b>2. Ý nghĩa từ vựng các đáp án:</b><br>\n            - A. busy<br>\n            - B. crowd<br>\n            - C. noisy<br>\n            - D. modem<br>\n            <b>3. Tại sao chọn crowd?</b> crowd (n): đám đông. Các từ còn lại là tính từ hoặc danh từ không cùng nhóm nghĩa chỉ đặc điểm đô thị (busy: bận rộn, noisy: ồn ào, modem: thiết bị điều biến). Xét từ loại, crowd là danh từ, busy/noisy là tính từ.<br>\n            <b>4. Tại sao các từ còn lại không được chọn?</b> Vì chúng thuộc cùng một nhóm từ loại hoặc phạm vi ý nghĩa đồng nhất với nhau.\n        "
+  },
+  {
+    "id": "ex3_3",
+    "type": "mcq",
+    "category": "Exercise 3: Circle the odd one out",
+    "question": "Find the odd word out among: <b>underground, restaurant, shop, cinema</b>",
+    "options": [
+      "underground",
+      "restaurant",
+      "shop",
+      "cinema"
+    ],
+    "correctText": "underground",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu hỏi:</b> Tìm từ khác biệt nhất so với các từ còn lại.<br>\n            <b>2. Ý nghĩa từ vựng các đáp án:</b><br>\n            - A. underground<br>\n            - B. restaurant<br>\n            - C. shop<br>\n            - D. cinema<br>\n            <b>3. Tại sao chọn underground?</b> underground (n/adj): tàu điện ngầm / dưới lòng đất. Ba từ kia là địa điểm dịch vụ công cộng giải trí/ăn uống: restaurant (nhà hàng), shop (cửa hàng), cinema (rạp phim).<br>\n            <b>4. Tại sao các từ còn lại không được chọn?</b> Vì chúng thuộc cùng một nhóm từ loại hoặc phạm vi ý nghĩa đồng nhất với nhau.\n        "
+  },
+  {
+    "id": "ex3_4",
+    "type": "mcq",
+    "category": "Exercise 3: Circle the odd one out",
+    "question": "Find the odd word out among: <b>downtown, suburb, liveable, town</b>",
+    "options": [
+      "downtown",
+      "suburb",
+      "liveable",
+      "town"
+    ],
+    "correctText": "liveable",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu hỏi:</b> Tìm từ khác biệt nhất so với các từ còn lại.<br>\n            <b>2. Ý nghĩa từ vựng các đáp án:</b><br>\n            - A. downtown<br>\n            - B. suburb<br>\n            - C. liveable<br>\n            - D. town<br>\n            <b>3. Tại sao chọn liveable?</b> liveable (adj): đáng sống. Ba từ còn lại là danh từ chỉ khu vực/vùng: downtown (trung tâm thành phố), suburb (ngoại ô), town (thị trấn).<br>\n            <b>4. Tại sao các từ còn lại không được chọn?</b> Vì chúng thuộc cùng một nhóm từ loại hoặc phạm vi ý nghĩa đồng nhất với nhau.\n        "
+  },
+  {
+    "id": "ex3_5",
+    "type": "mcq",
+    "category": "Exercise 3: Circle the odd one out",
+    "question": "Find the odd word out among: <b>amenity, bustling, dangerous, convenient</b>",
+    "options": [
+      "amenity",
+      "bustling",
+      "dangerous",
+      "convenient"
+    ],
+    "correctText": "amenity",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu hỏi:</b> Tìm từ khác biệt nhất so với các từ còn lại.<br>\n            <b>2. Ý nghĩa từ vựng các đáp án:</b><br>\n            - A. amenity<br>\n            - B. bustling<br>\n            - C. dangerous<br>\n            - D. convenient<br>\n            <b>3. Tại sao chọn amenity?</b> amenity (n): tiện nghi. Ba từ còn lại là tính từ mô tả tính chất: bustling (nhộn nhịp), dangerous (nguy hiểm), convenient (tiện lợi).<br>\n            <b>4. Tại sao các từ còn lại không được chọn?</b> Vì chúng thuộc cùng một nhóm từ loại hoặc phạm vi ý nghĩa đồng nhất với nhau.\n        "
+  },
+  {
+    "id": "ex3_6",
+    "type": "mcq",
+    "category": "Exercise 3: Circle the odd one out",
+    "question": "Find the odd word out among: <b>taxi, around, train, car</b>",
+    "options": [
+      "taxi",
+      "around",
+      "train",
+      "car"
+    ],
+    "correctText": "around",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu hỏi:</b> Tìm từ khác biệt nhất so với các từ còn lại.<br>\n            <b>2. Ý nghĩa từ vựng các đáp án:</b><br>\n            - A. taxi<br>\n            - B. around<br>\n            - C. train<br>\n            - D. car<br>\n            <b>3. Tại sao chọn around?</b> around (adv/prep): xung quanh. Ba từ còn lại là danh từ chỉ phương tiện giao thông: taxi (xe taxi), train (tàu hỏa), car (ô tô).<br>\n            <b>4. Tại sao các từ còn lại không được chọn?</b> Vì chúng thuộc cùng một nhóm từ loại hoặc phạm vi ý nghĩa đồng nhất với nhau.\n        "
+  },
+  {
+    "id": "ex3_7",
+    "type": "mcq",
+    "category": "Exercise 3: Circle the odd one out",
+    "question": "Find the odd word out among: <b>expensive, quiet, liveable, building</b>",
+    "options": [
+      "expensive",
+      "quiet",
+      "liveable",
+      "building"
+    ],
+    "correctText": "building",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu hỏi:</b> Tìm từ khác biệt nhất so với các từ còn lại.<br>\n            <b>2. Ý nghĩa từ vựng các đáp án:</b><br>\n            - A. expensive<br>\n            - B. quiet<br>\n            - C. liveable<br>\n            - D. building<br>\n            <b>3. Tại sao chọn building?</b> building (n): tòa nhà. Ba từ còn lại là tính từ miêu tả: expensive (đắt đỏ), quiet (yên tĩnh), liveable (đáng sống).<br>\n            <b>4. Tại sao các từ còn lại không được chọn?</b> Vì chúng thuộc cùng một nhóm từ loại hoặc phạm vi ý nghĩa đồng nhất với nhau.\n        "
+  },
+  {
+    "id": "ex3_8",
+    "type": "mcq",
+    "category": "Exercise 3: Circle the odd one out",
+    "question": "Find the odd word out among: <b>down, get, come, go</b>",
+    "options": [
+      "down",
+      "get",
+      "come",
+      "go"
+    ],
+    "correctText": "down",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu hỏi:</b> Tìm từ khác biệt nhất so với các từ còn lại.<br>\n            <b>2. Ý nghĩa từ vựng các đáp án:</b><br>\n            - A. down<br>\n            - B. get<br>\n            - C. come<br>\n            - D. go<br>\n            <b>3. Tại sao chọn down?</b> down (adv/prep): xuống dưới. Ba từ còn lại là động từ hành động: get (lấy/đạt được), come (đến), go (đi).<br>\n            <b>4. Tại sao các từ còn lại không được chọn?</b> Vì chúng thuộc cùng một nhóm từ loại hoặc phạm vi ý nghĩa đồng nhất với nhau.\n        "
+  },
+  {
+    "id": "ex3_9",
+    "type": "mcq",
+    "category": "Exercise 3: Circle the odd one out",
+    "question": "Find the odd word out among: <b>nearer, smaller, worker, taller</b>",
+    "options": [
+      "nearer",
+      "smaller",
+      "worker",
+      "taller"
+    ],
+    "correctText": "worker",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu hỏi:</b> Tìm từ khác biệt nhất so với các từ còn lại.<br>\n            <b>2. Ý nghĩa từ vựng các đáp án:</b><br>\n            - A. nearer<br>\n            - B. smaller<br>\n            - C. worker<br>\n            - D. taller<br>\n            <b>3. Tại sao chọn worker?</b> worker (n): công nhân/người lao động. Ba từ còn lại là dạng so sánh hơn của tính từ ngắn: nearer (gần hơn), smaller (nhỏ hơn), taller (cao hơn).<br>\n            <b>4. Tại sao các từ còn lại không được chọn?</b> Vì chúng thuộc cùng một nhóm từ loại hoặc phạm vi ý nghĩa đồng nhất với nhau.\n        "
+  },
+  {
+    "id": "ex3_10",
+    "type": "mcq",
+    "category": "Exercise 3: Circle the odd one out",
+    "question": "Find the odd word out among: <b>polluted, noise, light, water</b>",
+    "options": [
+      "polluted",
+      "noise",
+      "light",
+      "water"
+    ],
+    "correctText": "polluted",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu hỏi:</b> Tìm từ khác biệt nhất so với các từ còn lại.<br>\n            <b>2. Ý nghĩa từ vựng các đáp án:</b><br>\n            - A. polluted<br>\n            - B. noise<br>\n            - C. light<br>\n            - D. water<br>\n            <b>3. Tại sao chọn polluted?</b> polluted (adj): bị ô nhiễm. Ba từ còn lại là danh từ: noise (tiếng ồn), light (ánh sáng), water (nước).<br>\n            <b>4. Tại sao các từ còn lại không được chọn?</b> Vì chúng thuộc cùng một nhóm từ loại hoặc phạm vi ý nghĩa đồng nhất với nhau.\n        "
+  },
+  {
+    "id": "ex4_1",
+    "type": "gap_fill",
+    "category": "Exercise 4: Fill in the blank",
+    "question": "___ (1) ___ are a common sight in bustling cities, with cranes and workers building new skyscrapers.",
+    "options": [
+      "construction sites",
+      "entertainment center",
+      "leftovers",
+      "pricey",
+      "traffic jams",
+      "bustling",
+      "process",
+      "itchy"
+    ],
+    "correctText": "Construction sites",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Công trường xây dựng là cảnh tượng phổ biến ở các thành phố nhộn nhịp, với cần cẩu và công nhân đang xây dựng các tòa nhà chọc trời mới.<br>\n            <b>2. Ý nghĩa từ vựng các phương án chính:</b><br>\n            - construction sites: công trường xây dựng<br>\n            - entertainment center: trung tâm giải trí<br>\n            - leftovers: thức ăn thừa<br>\n            - pricey: đắt đỏ<br>\n            - traffic jams: ùn tắc giao thông<br>\n            <b>3. Tại sao chọn Construction sites?</b> Dựa vào ngữ cảnh từ khóa của câu để tìm từ kết hợp chính xác nhất.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Các từ còn lại không khớp ý nghĩa hoặc sai ngữ pháp khi đặt vào ngữ cảnh của câu.\n        "
+  },
+  {
+    "id": "ex4_2",
+    "type": "gap_fill",
+    "category": "Exercise 4: Fill in the blank",
+    "question": "After a long day at work, people often unwind by visiting an ___ (2) ___, where they can enjoy movies, games, or live performances.",
+    "options": [
+      "construction sites",
+      "entertainment center",
+      "leftovers",
+      "pricey",
+      "traffic jams",
+      "bustling",
+      "process",
+      "itchy"
+    ],
+    "correctText": "entertainment center",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Sau một ngày làm việc dài, mọi người thường thư giãn bằng cách ghé thăm một trung tâm giải trí, nơi họ có thể thưởng thức phim ảnh, trò chơi hoặc biểu diễn trực tiếp.<br>\n            <b>2. Ý nghĩa từ vựng các phương án chính:</b><br>\n            - construction sites: công trường xây dựng<br>\n            - entertainment center: trung tâm giải trí<br>\n            - leftovers: thức ăn thừa<br>\n            - pricey: đắt đỏ<br>\n            - traffic jams: ùn tắc giao thông<br>\n            <b>3. Tại sao chọn entertainment center?</b> Dựa vào ngữ cảnh từ khóa của câu để tìm từ kết hợp chính xác nhất.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Các từ còn lại không khớp ý nghĩa hoặc sai ngữ pháp khi đặt vào ngữ cảnh của câu.\n        "
+  },
+  {
+    "id": "ex4_3",
+    "type": "gap_fill",
+    "category": "Exercise 4: Fill in the blank",
+    "question": "Instead of wasting food, it's better to save ___ (3) ___ from meals and use them for another day.",
+    "options": [
+      "construction sites",
+      "entertainment center",
+      "leftovers",
+      "pricey",
+      "traffic jams",
+      "bustling",
+      "process",
+      "itchy"
+    ],
+    "correctText": "leftovers",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Thay vì lãng phí thức ăn, tốt hơn là tiết kiệm thức ăn thừa từ các bữa ăn và sử dụng chúng cho ngày khác.<br>\n            <b>2. Ý nghĩa từ vựng các phương án chính:</b><br>\n            - construction sites: công trường xây dựng<br>\n            - entertainment center: trung tâm giải trí<br>\n            - leftovers: thức ăn thừa<br>\n            - pricey: đắt đỏ<br>\n            - traffic jams: ùn tắc giao thông<br>\n            <b>3. Tại sao chọn leftovers?</b> Dựa vào ngữ cảnh từ khóa của câu để tìm từ kết hợp chính xác nhất.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Các từ còn lại không khớp ý nghĩa hoặc sai ngữ pháp khi đặt vào ngữ cảnh của câu.\n        "
+  },
+  {
+    "id": "ex4_4",
+    "type": "gap_fill",
+    "category": "Exercise 4: Fill in the blank",
+    "question": "Dining out in the city can be ___ (4) ___, especially at upscale restaurants with gourmet cuisine.",
+    "options": [
+      "construction sites",
+      "entertainment center",
+      "leftovers",
+      "pricey",
+      "traffic jams",
+      "bustling",
+      "process",
+      "itchy"
+    ],
+    "correctText": "pricey",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Ăn uống bên ngoài ở thành phố có thể đắt đỏ, đặc biệt là tại các nhà hàng sang trọng với ẩm thực hảo hạng.<br>\n            <b>2. Ý nghĩa từ vựng các phương án chính:</b><br>\n            - construction sites: công trường xây dựng<br>\n            - entertainment center: trung tâm giải trí<br>\n            - leftovers: thức ăn thừa<br>\n            - pricey: đắt đỏ<br>\n            - traffic jams: ùn tắc giao thông<br>\n            <b>3. Tại sao chọn pricey?</b> Dựa vào ngữ cảnh từ khóa của câu để tìm từ kết hợp chính xác nhất.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Các từ còn lại không khớp ý nghĩa hoặc sai ngữ pháp khi đặt vào ngữ cảnh của câu.\n        "
+  },
+  {
+    "id": "ex4_5",
+    "type": "gap_fill",
+    "category": "Exercise 4: Fill in the blank",
+    "question": "Rush hour brings heavy ___ (5) ___, causing delays for commuters trying to get home.",
+    "options": [
+      "construction sites",
+      "entertainment center",
+      "leftovers",
+      "pricey",
+      "traffic jams",
+      "bustling",
+      "process",
+      "itchy"
+    ],
+    "correctText": "traffic jams",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Giờ cao điểm mang lại tình trạng ùn tắc giao thông nghiêm trọng, gây ra sự chậm trễ cho những người tham gia giao thông đang cố gắng về nhà.<br>\n            <b>2. Ý nghĩa từ vựng các phương án chính:</b><br>\n            - construction sites: công trường xây dựng<br>\n            - entertainment center: trung tâm giải trí<br>\n            - leftovers: thức ăn thừa<br>\n            - pricey: đắt đỏ<br>\n            - traffic jams: ùn tắc giao thông<br>\n            <b>3. Tại sao chọn traffic jams?</b> Dựa vào ngữ cảnh từ khóa của câu để tìm từ kết hợp chính xác nhất.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Các từ còn lại không khớp ý nghĩa hoặc sai ngữ pháp khi đặt vào ngữ cảnh của câu.\n        "
+  },
+  {
+    "id": "ex6_1",
+    "type": "gap_fill",
+    "category": "Exercise 6: Complete the sentences",
+    "question": "I wear a mask to protect myself from breathing in the ___ (1) ___ air in the city.",
+    "options": [
+      "dusty",
+      "itchy eyes",
+      "metro",
+      "concrete jungle",
+      "construction site",
+      "entertainment centre",
+      "sky train",
+      "congested road"
+    ],
+    "correctText": "dusty",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Tôi đeo khẩu trang để bảo vệ bản thân khỏi việc hít phải không khí đầy khói bụi ở thành phố.<br>\n            <b>2. Tra nghĩa từ vựng:</b><br>\n            - dusty (adj): bụi bặm; itchy eyes (n): ngứa mắt<br>\n            - metro (n): tàu điện ngầm; concrete jungle (n): rừng bê tông<br>\n            - construction site (n): công trường; entertainment centre (n): trung tâm giải trí<br>\n            - sky train (n): tàu trên cao; congested road (n): đường tắc nghẽn<br>\n            <b>3. Tại sao chọn dusty?</b> Từ này điền vào tạo thành ngữ nghĩa hoàn hảo với câu văn gốc.<br>\n            <b>4. Tại sao các từ khác không hợp lý?</b> Đặt các từ khác vào sẽ gây mâu thuẫn hoàn toàn về ngữ nghĩa ngữ cảnh.\n        "
+  },
+  {
+    "id": "ex6_2",
+    "type": "gap_fill",
+    "category": "Exercise 6: Complete the sentences",
+    "question": "Wearing contact lenses sometimes leads to ___ (2) ___ by the end of the day.",
+    "options": [
+      "dusty",
+      "itchy eyes",
+      "metro",
+      "concrete jungle",
+      "construction site",
+      "entertainment centre",
+      "sky train",
+      "congested road"
+    ],
+    "correctText": "itchy eyes",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Đeo kính áp tròng đôi khi dẫn đến ngứa mắt vào cuối ngày.<br>\n            <b>2. Tra nghĩa từ vựng:</b><br>\n            - dusty (adj): bụi bặm; itchy eyes (n): ngứa mắt<br>\n            - metro (n): tàu điện ngầm; concrete jungle (n): rừng bê tông<br>\n            - construction site (n): công trường; entertainment centre (n): trung tâm giải trí<br>\n            - sky train (n): tàu trên cao; congested road (n): đường tắc nghẽn<br>\n            <b>3. Tại sao chọn itchy eyes?</b> Từ này điền vào tạo thành ngữ nghĩa hoàn hảo với câu văn gốc.<br>\n            <b>4. Tại sao các từ khác không hợp lý?</b> Đặt các từ khác vào sẽ gây mâu thuẫn hoàn toàn về ngữ nghĩa ngữ cảnh.\n        "
+  },
+  {
+    "id": "ex6_3",
+    "type": "gap_fill",
+    "category": "Exercise 6: Complete the sentences",
+    "question": "The ___ (3) ___ is an underground railway system in a city, often used for public transportation.",
+    "options": [
+      "dusty",
+      "itchy eyes",
+      "metro",
+      "concrete jungle",
+      "construction site",
+      "entertainment centre",
+      "sky train",
+      "congested road"
+    ],
+    "correctText": "metro",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Tàu điện ngầm là một hệ thống đường sắt dưới lòng đất trong thành phố, thường được sử dụng cho giao thông công cộng.<br>\n            <b>2. Tra nghĩa từ vựng:</b><br>\n            - dusty (adj): bụi bặm; itchy eyes (n): ngứa mắt<br>\n            - metro (n): tàu điện ngầm; concrete jungle (n): rừng bê tông<br>\n            - construction site (n): công trường; entertainment centre (n): trung tâm giải trí<br>\n            - sky train (n): tàu trên cao; congested road (n): đường tắc nghẽn<br>\n            <b>3. Tại sao chọn metro?</b> Từ này điền vào tạo thành ngữ nghĩa hoàn hảo với câu văn gốc.<br>\n            <b>4. Tại sao các từ khác không hợp lý?</b> Đặt các từ khác vào sẽ gây mâu thuẫn hoàn toàn về ngữ nghĩa ngữ cảnh.\n        "
+  },
+  {
+    "id": "ex6_4",
+    "type": "gap_fill",
+    "category": "Exercise 6: Complete the sentences",
+    "question": "The city is often called a ___ (4) ___ because of all the tall buildings.",
+    "options": [
+      "dusty",
+      "itchy eyes",
+      "metro",
+      "concrete jungle",
+      "construction site",
+      "entertainment centre",
+      "sky train",
+      "congested road"
+    ],
+    "correctText": "concrete jungle",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Thành phố thường được gọi là một khu rừng bê tông vì tất cả các tòa nhà cao tầng.<br>\n            <b>2. Tra nghĩa từ vựng:</b><br>\n            - dusty (adj): bụi bặm; itchy eyes (n): ngứa mắt<br>\n            - metro (n): tàu điện ngầm; concrete jungle (n): rừng bê tông<br>\n            - construction site (n): công trường; entertainment centre (n): trung tâm giải trí<br>\n            - sky train (n): tàu trên cao; congested road (n): đường tắc nghẽn<br>\n            <b>3. Tại sao chọn concrete jungle?</b> Từ này điền vào tạo thành ngữ nghĩa hoàn hảo với câu văn gốc.<br>\n            <b>4. Tại sao các từ khác không hợp lý?</b> Đặt các từ khác vào sẽ gây mâu thuẫn hoàn toàn về ngữ nghĩa ngữ cảnh.\n        "
+  },
+  {
+    "id": "ex6_5",
+    "type": "gap_fill",
+    "category": "Exercise 6: Complete the sentences",
+    "question": "My dad is a construction worker, so he often visits the ___ (5) ___.",
+    "options": [
+      "dusty",
+      "itchy eyes",
+      "metro",
+      "concrete jungle",
+      "construction site",
+      "entertainment centre",
+      "sky train",
+      "congested road"
+    ],
+    "correctText": "construction site",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Bố tôi là một công nhân xây dựng, vì vậy ông ấy thường xuyên đến công trường xây dựng.<br>\n            <b>2. Tra nghĩa từ vựng:</b><br>\n            - dusty (adj): bụi bặm; itchy eyes (n): ngứa mắt<br>\n            - metro (n): tàu điện ngầm; concrete jungle (n): rừng bê tông<br>\n            - construction site (n): công trường; entertainment centre (n): trung tâm giải trí<br>\n            - sky train (n): tàu trên cao; congested road (n): đường tắc nghẽn<br>\n            <b>3. Tại sao chọn construction site?</b> Từ này điền vào tạo thành ngữ nghĩa hoàn hảo với câu văn gốc.<br>\n            <b>4. Tại sao các từ khác không hợp lý?</b> Đặt các từ khác vào sẽ gây mâu thuẫn hoàn toàn về ngữ nghĩa ngữ cảnh.\n        "
+  },
+  {
+    "id": "ex6_6",
+    "type": "gap_fill",
+    "category": "Exercise 6: Complete the sentences",
+    "question": "The ___ (6) ___ is a fun place to hang out with friends and family.",
+    "options": [
+      "dusty",
+      "itchy eyes",
+      "metro",
+      "concrete jungle",
+      "construction site",
+      "entertainment centre",
+      "sky train",
+      "congested road"
+    ],
+    "correctText": "entertainment centre",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Trung tâm giải trí là một nơi vui vẻ để đi chơi cùng bạn bè và gia đình.<br>\n            <b>2. Tra nghĩa từ vựng:</b><br>\n            - dusty (adj): bụi bặm; itchy eyes (n): ngứa mắt<br>\n            - metro (n): tàu điện ngầm; concrete jungle (n): rừng bê tông<br>\n            - construction site (n): công trường; entertainment centre (n): trung tâm giải trí<br>\n            - sky train (n): tàu trên cao; congested road (n): đường tắc nghẽn<br>\n            <b>3. Tại sao chọn entertainment centre?</b> Từ này điền vào tạo thành ngữ nghĩa hoàn hảo với câu văn gốc.<br>\n            <b>4. Tại sao các từ khác không hợp lý?</b> Đặt các từ khác vào sẽ gây mâu thuẫn hoàn toàn về ngữ nghĩa ngữ cảnh.\n        "
+  },
+  {
+    "id": "ex6_7",
+    "type": "gap_fill",
+    "category": "Exercise 6: Complete the sentences",
+    "question": "The ___ (7) ___ is an elevated train system that runs above the city streets.",
+    "options": [
+      "dusty",
+      "itchy eyes",
+      "metro",
+      "concrete jungle",
+      "construction site",
+      "entertainment centre",
+      "sky train",
+      "congested road"
+    ],
+    "correctText": "sky train",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Tàu trên cao là một hệ thống tàu chạy trên cao phía trên các con đường thành phố.<br>\n            <b>2. Tra nghĩa từ vựng:</b><br>\n            - dusty (adj): bụi bặm; itchy eyes (n): ngứa mắt<br>\n            - metro (n): tàu điện ngầm; concrete jungle (n): rừng bê tông<br>\n            - construction site (n): công trường; entertainment centre (n): trung tâm giải trí<br>\n            - sky train (n): tàu trên cao; congested road (n): đường tắc nghẽn<br>\n            <b>3. Tại sao chọn sky train?</b> Từ này điền vào tạo thành ngữ nghĩa hoàn hảo với câu văn gốc.<br>\n            <b>4. Tại sao các từ khác không hợp lý?</b> Đặt các từ khác vào sẽ gây mâu thuẫn hoàn toàn về ngữ nghĩa ngữ cảnh.\n        "
+  },
+  {
+    "id": "ex6_8",
+    "type": "gap_fill",
+    "category": "Exercise 6: Complete the sentences",
+    "question": "Manh feels stressed when he has to drive on the ___ (8) ___.",
+    "options": [
+      "dusty",
+      "itchy eyes",
+      "metro",
+      "concrete jungle",
+      "construction site",
+      "entertainment centre",
+      "sky train",
+      "congested road"
+    ],
+    "correctText": "congested road",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Mạnh cảm thấy căng thẳng khi anh ấy phải lái xe trên con đường bị tắc nghẽn.<br>\n            <b>2. Tra nghĩa từ vựng:</b><br>\n            - dusty (adj): bụi bặm; itchy eyes (n): ngứa mắt<br>\n            - metro (n): tàu điện ngầm; concrete jungle (n): rừng bê tông<br>\n            - construction site (n): công trường; entertainment centre (n): trung tâm giải trí<br>\n            - sky train (n): tàu trên cao; congested road (n): đường tắc nghẽn<br>\n            <b>3. Tại sao chọn congested road?</b> Từ này điền vào tạo thành ngữ nghĩa hoàn hảo với câu văn gốc.<br>\n            <b>4. Tại sao các từ khác không hợp lý?</b> Đặt các từ khác vào sẽ gây mâu thuẫn hoàn toàn về ngữ nghĩa ngữ cảnh.\n        "
+  },
+  {
+    "id": "ex7_1",
+    "type": "gap_fill",
+    "category": "Exercise 7: Fill in the blank",
+    "question": "Some restaurants donate their ___ (1) ___ to local shelters instead of throwing it away.",
+    "options": [
+      "food waste",
+      "green spaces",
+      "livable",
+      "rush hour",
+      "construction site",
+      "cafeteria",
+      "leftovers",
+      "city center",
+      "traffic lights",
+      "traffic congestion"
+    ],
+    "correctText": "food waste",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Một số nhà hàng quyên góp rác thải thực phẩm/đồ ăn thừa của họ cho các nhà mái ấm địa phương thay vì vứt bỏ nó.<br>\n            <b>2. Giải nghĩa từ điền:</b> food waste phù hợp nhất với văn cảnh.<br>\n            <b>3. Tại sao chọn food waste?</b> Do các từ khóa bổ trợ trực tiếp định hướng đến đáp án này.<br>\n            <b>4. Tại sao các từ khác sai?</b> Điền các từ khác sẽ làm sai lệch cấu trúc ngữ nghĩa logic của câu.\n        "
+  },
+  {
+    "id": "ex7_2",
+    "type": "gap_fill",
+    "category": "Exercise 7: Fill in the blank",
+    "question": "Many people enjoy spending time relaxing in the city’s ___ (2) ___, like parks and gardens.",
+    "options": [
+      "food waste",
+      "green spaces",
+      "livable",
+      "rush hour",
+      "construction site",
+      "cafeteria",
+      "leftovers",
+      "city center",
+      "traffic lights",
+      "traffic congestion"
+    ],
+    "correctText": "green spaces",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Nhiều người thích dành thời gian thư giãn trong không gian xanh của thành phố, như công viên và vườn tược.<br>\n            <b>2. Giải nghĩa từ điền:</b> green spaces phù hợp nhất với văn cảnh.<br>\n            <b>3. Tại sao chọn green spaces?</b> Do các từ khóa bổ trợ trực tiếp định hướng đến đáp án này.<br>\n            <b>4. Tại sao các từ khác sai?</b> Điền các từ khác sẽ làm sai lệch cấu trúc ngữ nghĩa logic của câu.\n        "
+  },
+  {
+    "id": "ex7_3",
+    "type": "gap_fill",
+    "category": "Exercise 7: Fill in the blank",
+    "question": "The high cost of rent makes it difficult for many young professionals to find a ___ (3) ___ apartment in the city center.",
+    "options": [
+      "food waste",
+      "green spaces",
+      "livable",
+      "rush hour",
+      "construction site",
+      "cafeteria",
+      "leftovers",
+      "city center",
+      "traffic lights",
+      "traffic congestion"
+    ],
+    "correctText": "livable",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Chi phí thuê nhà cao khiến nhiều chuyên gia trẻ khó tìm được một căn hộ đáng sống ở trung tâm thành phố.<br>\n            <b>2. Giải nghĩa từ điền:</b> livable phù hợp nhất với văn cảnh.<br>\n            <b>3. Tại sao chọn livable?</b> Do các từ khóa bổ trợ trực tiếp định hướng đến đáp án này.<br>\n            <b>4. Tại sao các từ khác sai?</b> Điền các từ khác sẽ làm sai lệch cấu trúc ngữ nghĩa logic của câu.\n        "
+  },
+  {
+    "id": "ex7_4",
+    "type": "gap_fill",
+    "category": "Exercise 7: Fill in the blank",
+    "question": "Every morning during ___ (4) ___, the streets are packed with cars and buses.",
+    "options": [
+      "food waste",
+      "green spaces",
+      "livable",
+      "rush hour",
+      "construction site",
+      "cafeteria",
+      "leftovers",
+      "city center",
+      "traffic lights",
+      "traffic congestion"
+    ],
+    "correctText": "rush hour",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Mỗi buổi sáng trong giờ cao điểm, các con đường chật cứng ô tô và xe buýt.<br>\n            <b>2. Giải nghĩa từ điền:</b> rush hour phù hợp nhất với văn cảnh.<br>\n            <b>3. Tại sao chọn rush hour?</b> Do các từ khóa bổ trợ trực tiếp định hướng đến đáp án này.<br>\n            <b>4. Tại sao các từ khác sai?</b> Điền các từ khác sẽ làm sai lệch cấu trúc ngữ nghĩa logic của câu.\n        "
+  },
+  {
+    "id": "ex7_5",
+    "type": "gap_fill",
+    "category": "Exercise 7: Fill in the blank",
+    "question": "My friend’s apartment building is under renovation, so they are currently living in a temporary place until the ___ (5) ___ is finished.",
+    "options": [
+      "food waste",
+      "green spaces",
+      "livable",
+      "rush hour",
+      "construction site",
+      "cafeteria",
+      "leftovers",
+      "city center",
+      "traffic lights",
+      "traffic congestion"
+    ],
+    "correctText": "construction site",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Tòa nhà căn hộ của bạn tôi đang được cải tạo, vì vậy họ hiện đang sống ở một nơi tạm thời cho đến khi công trường xây dựng hoàn thành.<br>\n            <b>2. Giải nghĩa từ điền:</b> construction site phù hợp nhất với văn cảnh.<br>\n            <b>3. Tại sao chọn construction site?</b> Do các từ khóa bổ trợ trực tiếp định hướng đến đáp án này.<br>\n            <b>4. Tại sao các từ khác sai?</b> Điền các từ khác sẽ làm sai lệch cấu trúc ngữ nghĩa logic của câu.\n        "
+  },
+  {
+    "id": "ex7_6",
+    "type": "gap_fill",
+    "category": "Exercise 7: Fill in the blank",
+    "question": "Many office buildings have a ___ (6) ___ where employees can go to buy and eat lunch.",
+    "options": [
+      "food waste",
+      "green spaces",
+      "livable",
+      "rush hour",
+      "construction site",
+      "cafeteria",
+      "leftovers",
+      "city center",
+      "traffic lights",
+      "traffic congestion"
+    ],
+    "correctText": "cafeteria",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Nhiều tòa nhà văn phòng có một quán ăn tự phục vụ/căng tin nơi nhân viên có thể đến mua và ăn trưa.<br>\n            <b>2. Giải nghĩa từ điền:</b> cafeteria phù hợp nhất với văn cảnh.<br>\n            <b>3. Tại sao chọn cafeteria?</b> Do các từ khóa bổ trợ trực tiếp định hướng đến đáp án này.<br>\n            <b>4. Tại sao các từ khác sai?</b> Điền các từ khác sẽ làm sai lệch cấu trúc ngữ nghĩa logic của câu.\n        "
+  },
+  {
+    "id": "ex7_7",
+    "type": "gap_fill",
+    "category": "Exercise 7: Fill in the blank",
+    "question": "I made too much pasta last night. I’ll pack the ___ (7) ___ for lunch tomorrow.",
+    "options": [
+      "food waste",
+      "green spaces",
+      "livable",
+      "rush hour",
+      "construction site",
+      "cafeteria",
+      "leftovers",
+      "city center",
+      "traffic lights",
+      "traffic congestion"
+    ],
+    "correctText": "leftovers",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Tối qua tôi làm nhiều mì Ý quá. Tôi sẽ đóng gói phần thức ăn thừa cho bữa trưa ngày mai.<br>\n            <b>2. Giải nghĩa từ điền:</b> leftovers phù hợp nhất với văn cảnh.<br>\n            <b>3. Tại sao chọn leftovers?</b> Do các từ khóa bổ trợ trực tiếp định hướng đến đáp án này.<br>\n            <b>4. Tại sao các từ khác sai?</b> Điền các từ khác sẽ làm sai lệch cấu trúc ngữ nghĩa logic của câu.\n        "
+  },
+  {
+    "id": "ex7_8",
+    "type": "gap_fill",
+    "category": "Exercise 7: Fill in the blank",
+    "question": "___ (8) ___ is the heart of the city, with high activity, shops, and businesses.",
+    "options": [
+      "food waste",
+      "green spaces",
+      "livable",
+      "rush hour",
+      "construction site",
+      "cafeteria",
+      "leftovers",
+      "city center",
+      "traffic lights",
+      "traffic congestion"
+    ],
+    "correctText": "city center",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Trung tâm thành phố là trái tim của thành phố, với hoạt động cao, các cửa hàng và doanh nghiệp.<br>\n            <b>2. Giải nghĩa từ điền:</b> city center phù hợp nhất với văn cảnh.<br>\n            <b>3. Tại sao chọn city center?</b> Do các từ khóa bổ trợ trực tiếp định hướng đến đáp án này.<br>\n            <b>4. Tại sao các từ khác sai?</b> Điền các từ khác sẽ làm sai lệch cấu trúc ngữ nghĩa logic của câu.\n        "
+  },
+  {
+    "id": "ex7_9",
+    "type": "gap_fill",
+    "category": "Exercise 7: Fill in the blank",
+    "question": "We need to wait patiently for the ___ (9) ___ to turn green before crossing the street.",
+    "options": [
+      "food waste",
+      "green spaces",
+      "livable",
+      "rush hour",
+      "construction site",
+      "cafeteria",
+      "leftovers",
+      "city center",
+      "traffic lights",
+      "traffic congestion"
+    ],
+    "correctText": "traffic lights",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Chúng ta cần kiên nhẫn chờ đèn giao thông chuyển sang màu xanh trước khi qua đường.<br>\n            <b>2. Giải nghĩa từ điền:</b> traffic lights phù hợp nhất với văn cảnh.<br>\n            <b>3. Tại sao chọn traffic lights?</b> Do các từ khóa bổ trợ trực tiếp định hướng đến đáp án này.<br>\n            <b>4. Tại sao các từ khác sai?</b> Điền các từ khác sẽ làm sai lệch cấu trúc ngữ nghĩa logic của câu.\n        "
+  },
+  {
+    "id": "ex7_10",
+    "type": "gap_fill",
+    "category": "Exercise 7: Fill in the blank",
+    "question": "The city is planning to build a new subway line to help reduce ___ (10) ___ during rush hour.",
+    "options": [
+      "food waste",
+      "green spaces",
+      "livable",
+      "rush hour",
+      "construction site",
+      "cafeteria",
+      "leftovers",
+      "city center",
+      "traffic lights",
+      "traffic congestion"
+    ],
+    "correctText": "traffic congestion",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Thành phố đang có kế hoạch xây dựng một tuyến tàu điện ngầm mới để giúp giảm ùn tắc giao thông trong giờ cao điểm.<br>\n            <b>2. Giải nghĩa từ điền:</b> traffic congestion phù hợp nhất với văn cảnh.<br>\n            <b>3. Tại sao chọn traffic congestion?</b> Do các từ khóa bổ trợ trực tiếp định hướng đến đáp án này.<br>\n            <b>4. Tại sao các từ khác sai?</b> Điền các từ khác sẽ làm sai lệch cấu trúc ngữ nghĩa logic của câu.\n        "
+  },
+  {
+    "id": "ex9_1",
+    "type": "gap_fill",
+    "category": "Exercise 9: Phrasal Verbs",
+    "question": "My friends ride their bikes to ___ (1) ___ the city every weekend.",
+    "options": [
+      "get around",
+      "hang out with",
+      "cut down on",
+      "carry out",
+      "come down with",
+      "carrying out",
+      "came down with",
+      "hanging out with"
+    ],
+    "correctText": "get around",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Bạn bè của tôi đạp xe để đi lại quanh thành phố vào mỗi cuối tuần.<br>\n            <b>2. Ý nghĩa các cụm động từ (Phrasal Verbs):</b><br>\n            - get around: đi lại xung quanh<br>\n            - hang out with: tụ tập, đi chơi với ai<br>\n            - cut down on: cắt giảm, giảm bớt<br>\n            - carry out: tiến hành, thực hiện<br>\n            - come down with: bị mắc bệnh gì<br>\n            <b>3. Tại sao chọn get around?</b> Phù hợp hoàn hảo cả về ngữ pháp chia thì lẫn ngữ cảnh ngữ nghĩa câu.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì không tạo ra cụm từ có nghĩa hợp lý với hành động trong câu.\n        "
+  },
+  {
+    "id": "ex9_2",
+    "type": "gap_fill",
+    "category": "Exercise 9: Phrasal Verbs",
+    "question": "We turn off lights when we leave a room to ___ (2) ___ electricity.",
+    "options": [
+      "get around",
+      "hang out with",
+      "cut down on",
+      "carry out",
+      "come down with",
+      "carrying out",
+      "came down with",
+      "hanging out with"
+    ],
+    "correctText": "cut down on",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Chúng tôi tắt đèn khi rời khỏi phòng để cắt giảm lượng điện tiêu thụ.<br>\n            <b>2. Ý nghĩa các cụm động từ (Phrasal Verbs):</b><br>\n            - get around: đi lại xung quanh<br>\n            - hang out with: tụ tập, đi chơi với ai<br>\n            - cut down on: cắt giảm, giảm bớt<br>\n            - carry out: tiến hành, thực hiện<br>\n            - come down with: bị mắc bệnh gì<br>\n            <b>3. Tại sao chọn cut down on?</b> Phù hợp hoàn hảo cả về ngữ pháp chia thì lẫn ngữ cảnh ngữ nghĩa câu.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì không tạo ra cụm từ có nghĩa hợp lý với hành động trong câu.\n        "
+  },
+  {
+    "id": "ex9_3",
+    "type": "gap_fill",
+    "category": "Exercise 9: Phrasal Verbs",
+    "question": "Linda and Anna are ___ (3) ___ a project to plant trees in the park.",
+    "options": [
+      "get around",
+      "hang out with",
+      "cut down on",
+      "carry out",
+      "come down with",
+      "carrying out",
+      "came down with",
+      "hanging out with"
+    ],
+    "correctText": "carrying out",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Linda và Anna đang thực hiện một dự án trồng cây trong công viên.<br>\n            <b>2. Ý nghĩa các cụm động từ (Phrasal Verbs):</b><br>\n            - get around: đi lại xung quanh<br>\n            - hang out with: tụ tập, đi chơi với ai<br>\n            - cut down on: cắt giảm, giảm bớt<br>\n            - carry out: tiến hành, thực hiện<br>\n            - come down with: bị mắc bệnh gì<br>\n            <b>3. Tại sao chọn carrying out?</b> Phù hợp hoàn hảo cả về ngữ pháp chia thì lẫn ngữ cảnh ngữ nghĩa câu.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì không tạo ra cụm từ có nghĩa hợp lý với hành động trong câu.\n        "
+  },
+  {
+    "id": "ex9_4",
+    "type": "gap_fill",
+    "category": "Exercise 9: Phrasal Verbs",
+    "question": "Yesterday, I ___ (4) ___ a stomach ache after eating too much candy.",
+    "options": [
+      "get around",
+      "hang out with",
+      "cut down on",
+      "carry out",
+      "come down with",
+      "carrying out",
+      "came down with",
+      "hanging out with"
+    ],
+    "correctText": "came down with",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Hôm qua, tớ đã bị đau bụng sau khi ăn quá nhiều kẹo.<br>\n            <b>2. Ý nghĩa các cụm động từ (Phrasal Verbs):</b><br>\n            - get around: đi lại xung quanh<br>\n            - hang out with: tụ tập, đi chơi với ai<br>\n            - cut down on: cắt giảm, giảm bớt<br>\n            - carry out: tiến hành, thực hiện<br>\n            - come down with: bị mắc bệnh gì<br>\n            <b>3. Tại sao chọn came down with?</b> Phù hợp hoàn hảo cả về ngữ pháp chia thì lẫn ngữ cảnh ngữ nghĩa câu.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì không tạo ra cụm từ có nghĩa hợp lý với hành động trong câu.\n        "
+  },
+  {
+    "id": "ex9_5",
+    "type": "gap_fill",
+    "category": "Exercise 9: Phrasal Verbs",
+    "question": "Jane is excited to ___ (5) ___ a plan to go camping with her family.",
+    "options": [
+      "get around",
+      "hang out with",
+      "cut down on",
+      "carry out",
+      "come down with",
+      "carrying out",
+      "came down with",
+      "hanging out with"
+    ],
+    "correctText": "carry out",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Jane hào hứng thực hiện một kế hoạch đi cắm trại cùng gia đình cô ấy.<br>\n            <b>2. Ý nghĩa các cụm động từ (Phrasal Verbs):</b><br>\n            - get around: đi lại xung quanh<br>\n            - hang out with: tụ tập, đi chơi với ai<br>\n            - cut down on: cắt giảm, giảm bớt<br>\n            - carry out: tiến hành, thực hiện<br>\n            - come down with: bị mắc bệnh gì<br>\n            <b>3. Tại sao chọn carry out?</b> Phù hợp hoàn hảo cả về ngữ pháp chia thì lẫn ngữ cảnh ngữ nghĩa câu.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì không tạo ra cụm từ có nghĩa hợp lý với hành động trong câu.\n        "
+  },
+  {
+    "id": "ex9_6",
+    "type": "gap_fill",
+    "category": "Exercise 9: Phrasal Verbs",
+    "question": "We enjoy ___ (6) ___ our neighbours in the evening.",
+    "options": [
+      "get around",
+      "hang out with",
+      "cut down on",
+      "carry out",
+      "come down with",
+      "carrying out",
+      "came down with",
+      "hanging out with"
+    ],
+    "correctText": "hanging out with",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Chúng tôi thích tụ tập/đi chơi với những người hàng xóm của mình vào buổi tối.<br>\n            <b>2. Ý nghĩa các cụm động từ (Phrasal Verbs):</b><br>\n            - get around: đi lại xung quanh<br>\n            - hang out with: tụ tập, đi chơi với ai<br>\n            - cut down on: cắt giảm, giảm bớt<br>\n            - carry out: tiến hành, thực hiện<br>\n            - come down with: bị mắc bệnh gì<br>\n            <b>3. Tại sao chọn hanging out with?</b> Phù hợp hoàn hảo cả về ngữ pháp chia thì lẫn ngữ cảnh ngữ nghĩa câu.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì không tạo ra cụm từ có nghĩa hợp lý với hành động trong câu.\n        "
+  },
+  {
+    "id": "ex9_7",
+    "type": "gap_fill",
+    "category": "Exercise 9: Phrasal Verbs",
+    "question": "Oscar couldn’t go to school last Monday because he ___ (7) ___ a fever.",
+    "options": [
+      "get around",
+      "hang out with",
+      "cut down on",
+      "carry out",
+      "come down with",
+      "carrying out",
+      "came down with",
+      "hanging out with"
+    ],
+    "correctText": "came down with",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Oscar không thể đến trường thứ Hai tuần trước vì cậu ấy bị sốt.<br>\n            <b>2. Ý nghĩa các cụm động từ (Phrasal Verbs):</b><br>\n            - get around: đi lại xung quanh<br>\n            - hang out with: tụ tập, đi chơi với ai<br>\n            - cut down on: cắt giảm, giảm bớt<br>\n            - carry out: tiến hành, thực hiện<br>\n            - come down with: bị mắc bệnh gì<br>\n            <b>3. Tại sao chọn came down with?</b> Phù hợp hoàn hảo cả về ngữ pháp chia thì lẫn ngữ cảnh ngữ nghĩa câu.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì không tạo ra cụm từ có nghĩa hợp lý với hành động trong câu.\n        "
+  },
+  {
+    "id": "ex9_8",
+    "type": "gap_fill",
+    "category": "Exercise 9: Phrasal Verbs",
+    "question": "We should not throw trash in the river to ___ (8) ___ water pollution.",
+    "options": [
+      "get around",
+      "hang out with",
+      "cut down on",
+      "carry out",
+      "come down with",
+      "carrying out",
+      "came down with",
+      "hanging out with"
+    ],
+    "correctText": "cut down on",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Chúng ta không nên vứt rác xuống sông để cắt giảm/giảm thiểu ô nhiễm nguồn nước.<br>\n            <b>2. Ý nghĩa các cụm động từ (Phrasal Verbs):</b><br>\n            - get around: đi lại xung quanh<br>\n            - hang out with: tụ tập, đi chơi với ai<br>\n            - cut down on: cắt giảm, giảm bớt<br>\n            - carry out: tiến hành, thực hiện<br>\n            - come down with: bị mắc bệnh gì<br>\n            <b>3. Tại sao chọn cut down on?</b> Phù hợp hoàn hảo cả về ngữ pháp chia thì lẫn ngữ cảnh ngữ nghĩa câu.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì không tạo ra cụm từ có nghĩa hợp lý với hành động trong câu.\n        "
+  },
+  {
+    "id": "ex9_9",
+    "type": "gap_fill",
+    "category": "Exercise 9: Phrasal Verbs",
+    "question": "I can’t ___ (9) ___ my friends because I have to do my homework.",
+    "options": [
+      "get around",
+      "hang out with",
+      "cut down on",
+      "carry out",
+      "come down with",
+      "carrying out",
+      "came down with",
+      "hanging out with"
+    ],
+    "correctText": "hang out with",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Tớ không thể đi chơi với bạn bè vì tớ phải làm bài tập về nhà.<br>\n            <b>2. Ý nghĩa các cụm động từ (Phrasal Verbs):</b><br>\n            - get around: đi lại xung quanh<br>\n            - hang out with: tụ tập, đi chơi với ai<br>\n            - cut down on: cắt giảm, giảm bớt<br>\n            - carry out: tiến hành, thực hiện<br>\n            - come down with: bị mắc bệnh gì<br>\n            <b>3. Tại sao chọn hang out with?</b> Phù hợp hoàn hảo cả về ngữ pháp chia thì lẫn ngữ cảnh ngữ nghĩa câu.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì không tạo ra cụm từ có nghĩa hợp lý với hành động trong câu.\n        "
+  },
+  {
+    "id": "ex9_10",
+    "type": "gap_fill",
+    "category": "Exercise 9: Phrasal Verbs",
+    "question": "If you want to ___ (10) ___ London, you can take a bus.",
+    "options": [
+      "get around",
+      "hang out with",
+      "cut down on",
+      "carry out",
+      "come down with",
+      "carrying out",
+      "came down with",
+      "hanging out with"
+    ],
+    "correctText": "get around",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa câu gốc:</b> Nếu bạn muốn đi lại xung quanh London, bạn có thể đi xe buýt.<br>\n            <b>2. Ý nghĩa các cụm động từ (Phrasal Verbs):</b><br>\n            - get around: đi lại xung quanh<br>\n            - hang out with: tụ tập, đi chơi với ai<br>\n            - cut down on: cắt giảm, giảm bớt<br>\n            - carry out: tiến hành, thực hiện<br>\n            - come down with: bị mắc bệnh gì<br>\n            <b>3. Tại sao chọn get around?</b> Phù hợp hoàn hảo cả về ngữ pháp chia thì lẫn ngữ cảnh ngữ nghĩa câu.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì không tạo ra cụm từ có nghĩa hợp lý với hành động trong câu.\n        "
+  },
+  {
+    "id": "ex10_1",
+    "type": "mcq",
+    "category": "Exercise 10: Closest Meaning (Từ đồng nghĩa)",
+    "question": "New York city was <u>founded</u> by the Dutch in 1624.",
+    "options": [
+      "demolished",
+      "destroyed",
+      "established",
+      "pointed"
+    ],
+    "correctText": "established",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa và phân tích câu:</b> Thành phố New York được thành lập bởi người Hà Lan vào năm 1624. Từ đồng nghĩa với founded (thành lập) là established (thiết lập, thành lập). Các từ kia: demolished/destroyed (bị phá hủy), pointed (chỉ tay).<br>\n            <b>2. Liệt kê nghĩa các đáp án cụ thể:</b><br>\n            - A. demolished<br>\n            - B. destroyed<br>\n            - C. established<br>\n            - D. pointed<br>\n            <b>3. Tại sao chọn established?</b> Vì nó sát nghĩa nhất với từ gạch chân gốc.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì chúng trái nghĩa hoặc hoàn toàn lạc đề ngữ cảnh câu.\n        "
+  },
+  {
+    "id": "ex10_2",
+    "type": "mcq",
+    "category": "Exercise 10: Closest Meaning (Từ đồng nghĩa)",
+    "question": "More and more city <u>dwellers</u> suffer from coughing or breathing problems.",
+    "options": [
+      "residents",
+      "roads",
+      "pollution",
+      "traffics"
+    ],
+    "correctText": "residents",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa và phân tích câu:</b> Ngày càng có nhiều cư dân thành phố bị ho hoặc các vấn đề về hô hấp. Dwellers = residents (cư dân). Các từ khác: roads (con đường), pollution (ô nhiễm), traffics (giao thông).<br>\n            <b>2. Liệt kê nghĩa các đáp án cụ thể:</b><br>\n            - A. residents<br>\n            - B. roads<br>\n            - C. pollution<br>\n            - D. traffics<br>\n            <b>3. Tại sao chọn residents?</b> Vì nó sát nghĩa nhất với từ gạch chân gốc.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì chúng trái nghĩa hoặc hoàn toàn lạc đề ngữ cảnh câu.\n        "
+  },
+  {
+    "id": "ex10_3",
+    "type": "mcq",
+    "category": "Exercise 10: Closest Meaning (Từ đồng nghĩa)",
+    "question": "At weekends the city centre is always <u>packed with</u> people.",
+    "options": [
+      "Empty",
+      "crowded",
+      "peaceful",
+      "convenient"
+    ],
+    "correctText": "crowded",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa và phân tích câu:</b> Vào cuối tuần, trung tâm thành phố luôn đông nghịt người. Packed with = crowded (đông đúc, chật kín). Các từ khác: Empty (trống rỗng), peaceful (yên bình), convenient (tiện lợi).<br>\n            <b>2. Liệt kê nghĩa các đáp án cụ thể:</b><br>\n            - A. Empty<br>\n            - B. crowded<br>\n            - C. peaceful<br>\n            - D. convenient<br>\n            <b>3. Tại sao chọn crowded?</b> Vì nó sát nghĩa nhất với từ gạch chân gốc.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì chúng trái nghĩa hoặc hoàn toàn lạc đề ngữ cảnh câu.\n        "
+  },
+  {
+    "id": "ex10_4",
+    "type": "mcq",
+    "category": "Exercise 10: Closest Meaning (Từ đồng nghĩa)",
+    "question": "Public transportation in the city is generally <u>reliable</u>, with frequent buses and trains.",
+    "options": [
+      "Unsteady",
+      "broken",
+      "delayed",
+      "trustworthy"
+    ],
+    "correctText": "trustworthy",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa và phân tích câu:</b> Giao thông công cộng ở thành phố nhìn chung là đáng tin cậy, với xe buýt và tàu hỏa thường xuyên. Reliable = trustworthy (đáng tin cậy). Các từ khác: Unsteady (không vững chắc), broken (bị hỏng), delayed (bị trì hoãn).<br>\n            <b>2. Liệt kê nghĩa các đáp án cụ thể:</b><br>\n            - A. Unsteady<br>\n            - B. broken<br>\n            - C. delayed<br>\n            - D. trustworthy<br>\n            <b>3. Tại sao chọn trustworthy?</b> Vì nó sát nghĩa nhất với từ gạch chân gốc.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì chúng trái nghĩa hoặc hoàn toàn lạc đề ngữ cảnh câu.\n        "
+  },
+  {
+    "id": "ex10_5",
+    "type": "mcq",
+    "category": "Exercise 10: Closest Meaning (Từ đồng nghĩa)",
+    "question": "The city skyline, with its tall buildings and shimmering lights, is undeniably <u>attractive</u>.",
+    "options": [
+      "Appealing",
+      "boring",
+      "ugly",
+      "unattractive"
+    ],
+    "correctText": "appealing",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa và phân tích câu:</b> Đường chân trời của thành phố, với các tòa nhà cao tầng và ánh đèn lung linh, không thể phủ nhận là vô cùng cuốn hút. Attractive = appealing (hấp dẫn, lôi cuốn). Các từ khác: boring (nhàm chán), ugly/unattractive (xấu xí, không thu hút).<br>\n            <b>2. Liệt kê nghĩa các đáp án cụ thể:</b><br>\n            - A. Appealing<br>\n            - B. boring<br>\n            - C. ugly<br>\n            - D. unattractive<br>\n            <b>3. Tại sao chọn appealing?</b> Vì nó sát nghĩa nhất với từ gạch chân gốc.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì chúng trái nghĩa hoặc hoàn toàn lạc đề ngữ cảnh câu.\n        "
+  },
+  {
+    "id": "ex11_1",
+    "type": "mcq",
+    "category": "Exercise 11: Opposite Meaning (Từ trái nghĩa)",
+    "question": "There is far too much pollution nowadays in <u>urban</u> areas.",
+    "options": [
+      "Local",
+      "rural",
+      "nation",
+      "neighbour"
+    ],
+    "correctText": "rural",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa và phân tích câu:</b> Ngày nay có quá nhiều sự ô nhiễm ở các khu vực đô thị (urban). Từ trái nghĩa với urban (đô thị) là rural (nông thôn). Các từ khác: Local (địa phương), nation (quốc gia), neighbour (hàng xóm).<br>\n            <b>2. Liệt kê nghĩa các đáp án cụ thể:</b><br>\n            - A. Local<br>\n            - B. rural<br>\n            - C. nation<br>\n            - D. neighbour<br>\n            <b>3. Tại sao chọn rural?</b> Vì đây là từ có nét nghĩa trái ngược hoàn toàn với từ được gạch chân.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì chúng là từ đồng nghĩa hoặc không mang nghĩa đối lập.\n        "
+  },
+  {
+    "id": "ex11_2",
+    "type": "mcq",
+    "category": "Exercise 11: Opposite Meaning (Từ trái nghĩa)",
+    "question": "Unfortunately, some neighborhoods in the city can be <u>dangerous</u> due to high crime rates.",
+    "options": [
+      "Dull",
+      "special",
+      "safe",
+      "unsafe"
+    ],
+    "correctText": "safe",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa và phân tích câu:</b> Thật không may, một số khu dân cư trong thành phố có thể nguy hiểm (dangerous) do tỷ lệ tội phạm cao. Trái nghĩa với dangerous là safe (an toàn). Các từ khác: Dull (tẻ nhạt), special (đặc biệt), unsafe (không an toàn - từ đồng nghĩa).<br>\n            <b>2. Liệt kê nghĩa các đáp án cụ thể:</b><br>\n            - A. Dull<br>\n            - B. special<br>\n            - C. safe<br>\n            - D. unsafe<br>\n            <b>3. Tại sao chọn safe?</b> Vì đây là từ có nét nghĩa trái ngược hoàn toàn với từ được gạch chân.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì chúng là từ đồng nghĩa hoặc không mang nghĩa đối lập.\n        "
+  },
+  {
+    "id": "ex11_3",
+    "type": "mcq",
+    "category": "Exercise 11: Opposite Meaning (Từ trái nghĩa)",
+    "question": "Living in the city has a number of <u>drawbacks</u>.",
+    "options": [
+      "Negatives",
+      "advantages",
+      "disadvantages",
+      "problems"
+    ],
+    "correctText": "advantages",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa và phân tích câu:</b> Sống ở thành phố có một số hạn chế/nhược điểm (drawbacks). Trái nghĩa với drawbacks là advantages (ưu điểm, thuận lợi). Các từ khác: Negatives/disadvantages/problems đều mang nghĩa tiêu cực, đồng nghĩa.<br>\n            <b>2. Liệt kê nghĩa các đáp án cụ thể:</b><br>\n            - A. Negatives<br>\n            - B. advantages<br>\n            - C. disadvantages<br>\n            - D. problems<br>\n            <b>3. Tại sao chọn advantages?</b> Vì đây là từ có nét nghĩa trái ngược hoàn toàn với từ được gạch chân.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì chúng là từ đồng nghĩa hoặc không mang nghĩa đối lập.\n        "
+  },
+  {
+    "id": "ex11_4",
+    "type": "mcq",
+    "category": "Exercise 11: Opposite Meaning (Từ trái nghĩa)",
+    "question": "The new road is very <u>wide</u>, which helps to reduce congestion and improve the flow of vehicles.",
+    "options": [
+      "Narrow",
+      "broad",
+      "large",
+      "vast"
+    ],
+    "correctText": "narrow",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa và phân tích câu:</b> Con đường mới rất rộng (wide), giúp giảm ùn tắc và cải thiện dòng chảy của xe cộ. Trái nghĩa với wide là narrow (hẹp). Các từ khác: broad/large/vast đều có nghĩa là rộng lớn, bao la.<br>\n            <b>2. Liệt kê nghĩa các đáp án cụ thể:</b><br>\n            - A. Narrow<br>\n            - B. broad<br>\n            - C. large<br>\n            - D. vast<br>\n            <b>3. Tại sao chọn narrow?</b> Vì đây là từ có nét nghĩa trái ngược hoàn toàn with từ được gạch chân.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì chúng là từ đồng nghĩa hoặc không mang nghĩa đối lập.\n        "
+  },
+  {
+    "id": "ex11_5",
+    "type": "mcq",
+    "category": "Exercise 11: Opposite Meaning (Từ trái nghĩa)",
+    "question": "Living in the city can be <u>pricey</u>; rent, dining out, and entertainment all come at a premium.",
+    "options": [
+      "Cheap",
+      "expensive",
+      "costly",
+      "dear"
+    ],
+    "correctText": "cheap",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa và phân tích câu:</b> Sống ở thành phố có thể đắt đỏ (pricey); tiền thuê nhà, ăn uống bên ngoài và giải trí đều ở mức giá cao. Trái nghĩa với pricey là cheap (rẻ tiền). Các từ khác: expensive/costly/dear đều mang nghĩa là đắt đỏ.<br>\n            <b>2. Liệt kê nghĩa các đáp án cụ thể:</b><br>\n            - A. Cheap<br>\n            - B. expensive<br>\n            - C. costly<br>\n            - D. dear<br>\n            <b>3. Tại sao chọn cheap?</b> Vì đây là từ có nét nghĩa trái ngược hoàn toàn với từ được gạch chân.<br>\n            <b>4. Tại sao các đáp án khác sai?</b> Vì chúng là từ đồng nghĩa hoặc không mang nghĩa đối lập.\n        "
+  },
+  {
+    "id": "ex12_1",
+    "type": "mcq",
+    "category": "Exercise 12: Find the Mistake (Tìm lỗi sai)",
+    "question": "Identify the underlined part that needs correction: <br><b>The <u>more old</u> (A) Kim <u>gets</u> (B), the <u>more thoughtful</u> (C) she <u>becomes</u> (D).</b>",
+    "options": [
+      "more old",
+      "gets",
+      "more thoughtful",
+      "becomes"
+    ],
+    "correctText": "more old",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch câu và phân tích ngữ pháp:</b> Sửa 'more old' thành 'older'. Cấu trúc so sánh lũy tiến song song (Càng... thì càng...): The + comparative adj + S + V, the + comparative adj + S + V. Vì 'old' là tính từ ngắn nên dạng so sánh hơn là 'older' chứ không phải 'more old'.<br>\n            <b>2. Tại sao phương án more old sai?</b> Vì lỗi cấu trúc hoặc lỗi chính tả biến đổi dạng so sánh hơn của tính từ ngắn/dài.<br>\n            <b>3. Cách sửa đúng:</b> Đọc kỹ phần phân tích để nắm trọn công thức so sánh kép 'The + so sánh hơn..., the + so sánh hơn...' cực kỳ quan trọng của chương trình lớp 9.\n        "
+  },
+  {
+    "id": "ex12_2",
+    "type": "mcq",
+    "category": "Exercise 12: Find the Mistake (Tìm lỗi sai)",
+    "question": "Identify the underlined part that needs correction: <br><b>The <u>louder</u> (A) the <u>music</u> (B) plays, the <u>exciteder</u> (C) the crowd <u>becomes</u> (D).</b>",
+    "options": [
+      "louder",
+      "music",
+      "exciteder",
+      "becomes"
+    ],
+    "correctText": "exciteder",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch câu và phân tích ngữ pháp:</b> Sửa 'exciteder' thành 'more excited'. 'Excited' là tính từ dài (3 âm tiết), do đó dạng so sánh hơn bắt buộc phải dùng 'more excited' chứ không thể thêm đuôi -er trực tiếp.<br>\n            <b>2. Tại sao phương án exciteder sai?</b> Vì lỗi cấu trúc hoặc lỗi chính tả biến đổi dạng so sánh hơn của tính từ ngắn/dài.<br>\n            <b>3. Cách sửa đúng:</b> Đọc kỹ phần phân tích để nắm trọn công thức so sánh kép 'The + so sánh hơn..., the + so sánh hơn...' cực kỳ quan trọng của chương trình lớp 9.\n        "
+  },
+  {
+    "id": "ex12_3",
+    "type": "mcq",
+    "category": "Exercise 12: Find the Mistake (Tìm lỗi sai)",
+    "question": "Identify the underlined part that needs correction: <br><b><u>The</u> (A) <u>clearer</u> (B) the instructions <u>are</u> (C), the <u>easyer</u> (D) the task becomes.</b>",
+    "options": [
+      "The",
+      "clearer",
+      "are",
+      "easyer"
+    ],
+    "correctText": "easyer",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch câu và phân tích ngữ pháp:</b> Sửa lỗi chính tả 'easyer' thành 'easier'. Tính từ kết thúc bằng đuôi 'y' ngắn như easy khi đổi sang so sánh hơn phải chuyển 'y' thành 'i' rồi mới thêm 'er'.<br>\n            <b>2. Tại sao phương án easyer sai?</b> Vì lỗi cấu trúc hoặc lỗi chính tả biến đổi dạng so sánh hơn của tính từ ngắn/dài.<br>\n            <b>3. Cách sửa đúng:</b> Đọc kỹ phần phân tích để nắm trọn công thức so sánh kép 'The + so sánh hơn..., the + so sánh hơn...' cực kỳ quan trọng của chương trình lớp 9.\n        "
+  },
+  {
+    "id": "ex12_4",
+    "type": "mcq",
+    "category": "Exercise 12: Find the Mistake (Tìm lỗi sai)",
+    "question": "Identify the underlined part that needs correction: <br><b>The <u>longer</u> (A) the line <u>at</u> (B) the store is, the <u>most impatient</u> (C) I <u>become</u> (D).</b>",
+    "options": [
+      "at",
+      "the",
+      "most impatient",
+      "become"
+    ],
+    "correctText": "most impatient",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch câu và phân tích ngữ pháp:</b> Sửa 'most impatient' thành 'more impatient'. Theo đúng công thức so sánh kép song hành song song, ta phải dùng hình thái so sánh hơn (more) chứ không dùng so sánh nhất (most).<br>\n            <b>2. Tại sao phương án most impatient sai?</b> Vì lỗi cấu trúc hoặc lỗi chính tả biến đổi dạng so sánh hơn của tính từ ngắn/dài.<br>\n            <b>3. Cách sửa đúng:</b> Đọc kỹ phần phân tích để nắm trọn công thức so sánh kép 'The + so sánh hơn..., the + so sánh hơn...' cực kỳ quan trọng của chương trình lớp 9.\n        "
+  },
+  {
+    "id": "ex12_5",
+    "type": "mcq",
+    "category": "Exercise 12: Find the Mistake (Tìm lỗi sai)",
+    "question": "Identify the underlined part that needs correction: <br><b>The <u>dry</u> (A) the weather <u>gets</u> (B), the <u>thirstier</u> (C) my <u>mother</u> (D) becomes.</b>",
+    "options": [
+      "The",
+      "dry",
+      "thirstier",
+      "my"
+    ],
+    "correctText": "dry",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch câu và phân tích ngữ pháp:</b> Sửa 'dry' thành 'drier'. Vế đầu tiên cần tính từ ở dạng so sánh hơn để cấu thành cấu trúc so sánh kép 'The + so sánh hơn, the + so sánh hơn'.<br>\n            <b>2. Tại sao phương án dry sai?</b> Vì lỗi cấu trúc hoặc lỗi chính tả biến đổi dạng so sánh hơn của tính từ ngắn/dài.<br>\n            <b>3. Cách sửa đúng:</b> Đọc kỹ phần phân tích để nắm trọn công thức so sánh kép 'The + so sánh hơn..., the + so sánh hơn...' cực kỳ quan trọng của chương trình lớp 9.\n        "
+  },
+  {
+    "id": "ex12_6",
+    "type": "mcq",
+    "category": "Exercise 12: Find the Mistake (Tìm lỗi sai)",
+    "question": "Identify the underlined part that needs correction: <br><b>The <u>thiner</u> (A) the ice <u>gets</u> (B), the <u>more dangerous</u> (C) it becomes to walk <u>on</u> (D).</b>",
+    "options": [
+      "thiner",
+      "gets",
+      "more dangerous",
+      "on"
+    ],
+    "correctText": "thiner",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch câu và phân tích ngữ pháp:</b> Sửa chính tả từ 'thiner' thành 'thinner'. 'Thin' là tính từ ngắn có một nguyên âm đứng giữa hai phụ âm, ta phải gấp đôi phụ âm cuối 'n' trước khi thêm 'er'.<br>\n            <b>2. Tại sao phương án thiner sai?</b> Vì lỗi cấu trúc hoặc lỗi chính tả biến đổi dạng so sánh hơn của tính từ ngắn/dài.<br>\n            <b>3. Cách sửa đúng:</b> Đọc kỹ phần phân tích để nắm trọn công thức so sánh kép 'The + so sánh hơn..., the + so sánh hơn...' cực kỳ quan trọng của chương trình lớp 9.\n        "
+  },
+  {
+    "id": "ex12_7",
+    "type": "mcq",
+    "category": "Exercise 12: Find the Mistake (Tìm lỗi sai)",
+    "question": "Identify the underlined part that needs correction: <br><b>The <u>most crowded</u> (A) the elevator <u>is</u> (B), the <u>more uncomfortable</u> (C) I <u>feel</u> (D).</b>",
+    "options": [
+      "most crowded",
+      "is",
+      "uncomfortable",
+      "feel"
+    ],
+    "correctText": "most crowded",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch câu và phân tích ngữ pháp:</b> Sửa 'most crowded' thành 'more crowded'. Trong cấu trúc so sánh song hành, cả hai vế đều bắt buộc phải đồng bộ ở dạng thức so sánh hơn.<br>\n            <b>2. Tại sao phương án most crowded sai?</b> Vì lỗi cấu trúc hoặc lỗi chính tả biến đổi dạng so sánh hơn của tính từ ngắn/dài.<br>\n            <b>3. Cách sửa đúng:</b> Đọc kỹ phần phân tích để nắm trọn công thức so sánh kép 'The + so sánh hơn..., the + so sánh hơn...' cực kỳ quan trọng của chương trình lớp 9.\n        "
+  },
+  {
+    "id": "ex12_8",
+    "type": "mcq",
+    "category": "Exercise 12: Find the Mistake (Tìm lỗi sai)",
+    "question": "Identify the underlined part that needs correction: <br><b>The <u>more expensive</u> (A) the restaurant <u>is</u> (B), the <u>gooder</u> (C) the food <u>tastes</u> (D).</b>",
+    "options": [
+      "expensive",
+      "is",
+      "gooder",
+      "tastes"
+    ],
+    "correctText": "gooder",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch câu và phân tích ngữ pháp:</b> Sửa tính từ bất quy tắc 'gooder' thành 'better'. Từ 'good' đổi sang dạng so sánh hơn có hình thái đặc biệt là 'better'.<br>\n            <b>2. Tại sao phương án gooder sai?</b> Vì lỗi cấu trúc hoặc lỗi chính tả biến đổi dạng so sánh hơn của tính từ ngắn/dài.<br>\n            <b>3. Cách sửa đúng:</b> Đọc kỹ phần phân tích để nắm trọn công thức so sánh kép 'The + so sánh hơn..., the + so sánh hơn...' cực kỳ quan trọng của chương trình lớp 9.\n        "
+  },
+  {
+    "id": "ex13_1",
+    "type": "mcq",
+    "category": "Exercise 13: Choose the Correct Option",
+    "question": "The <b>(darker / more dark)</b> the room gets, the more nervous I feel.",
+    "options": [
+      "darker",
+      "more dark"
+    ],
+    "correctText": "darker",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu:</b> Căn phòng càng tối, tớ càng thấy lo lắng. 'Dark' là tính từ ngắn nên dùng 'darker'.<br>\n            <b>2. Phân tích các từ lựa chọn:</b> Xem xét giữa dạng nguyên thể, so sánh hơn hoặc so sánh nhất.<br>\n            <b>3. Tại sao chọn darker?</b> Tuân thủ tuyệt đối quy tắc vàng của cấu trúc so sánh kép song hành: <i>The + so sánh hơn, the + so sánh hơn</i>.<br>\n            <b>4. Tại sao đáp án còn lại sai?</b> Vì sai cấu trúc so sánh hoặc không hợp ngữ nghĩa thực tế của câu.\n        "
+  },
+  {
+    "id": "ex13_2",
+    "type": "mcq",
+    "category": "Exercise 13: Choose the Correct Option",
+    "question": "The options for entertainment there are, the <b>(most / more)</b> diverse the culture becomes.",
+    "options": [
+      "most",
+      "more"
+    ],
+    "correctText": "more",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu:</b> Cấu trúc so sánh kép yêu cầu dùng dạng so sánh hơn 'more' chứ không dùng so sánh nhất 'most'.<br>\n            <b>2. Phân tích các từ lựa chọn:</b> Xem xét giữa dạng nguyên thể, so sánh hơn hoặc so sánh nhất.<br>\n            <b>3. Tại sao chọn more?</b> Tuân thủ tuyệt đối quy tắc vàng của cấu trúc so sánh kép song hành: <i>The + so sánh hơn, the + so sánh hơn</i>.<br>\n            <b>4. Tại sao đáp án còn lại sai?</b> Vì sai cấu trúc so sánh hoặc không hợp ngữ nghĩa thực tế của câu.\n        "
+  },
+  {
+    "id": "ex13_3",
+    "type": "mcq",
+    "category": "Exercise 13: Choose the Correct Option",
+    "question": "The <b>(largest / larger)</b> city you live in, the more opportunities there are for jobs.",
+    "options": [
+      "largest",
+      "larger"
+    ],
+    "correctText": "larger",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu:</b> Thành phố bạn sống càng lớn, càng có nhiều cơ hội việc làm. Dùng 'larger' theo cấu trúc song hành.<br>\n            <b>2. Phân tích các từ lựa chọn:</b> Xem xét giữa dạng nguyên thể, so sánh hơn hoặc so sánh nhất.<br>\n            <b>3. Tại sao chọn larger?</b> Tuân thủ tuyệt đối quy tắc vàng của cấu trúc so sánh kép song hành: <i>The + so sánh hơn, the + so sánh hơn</i>.<br>\n            <b>4. Tại sao đáp án còn lại sai?</b> Vì sai cấu trúc so sánh hoặc không hợp ngữ nghĩa thực tế của câu.\n        "
+  },
+  {
+    "id": "ex13_4",
+    "type": "mcq",
+    "category": "Exercise 13: Choose the Correct Option",
+    "question": "The dirtier the lake is, the less <b>(attractive / more attractive)</b> it becomes.",
+    "options": [
+      "attractive",
+      "more attractive"
+    ],
+    "correctText": "attractive",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu:</b> Hồ nước càng bẩn thì nó càng trở nên kém hấp dẫn. Cấu trúc giảm dần: 'the less + tính từ nguyên mẫu' -> less attractive.<br>\n            <b>2. Phân tích các từ lựa chọn:</b> Xem xét giữa dạng nguyên thể, so sánh hơn hoặc so sánh nhất.<br>\n            <b>3. Tại sao chọn attractive?</b> Tuân thủ tuyệt đối quy tắc vàng của cấu trúc so sánh kép song hành: <i>The + so sánh hơn, the + so sánh hơn</i>.<br>\n            <b>4. Tại sao đáp án còn lại sai?</b> Vì sai cấu trúc so sánh hoặc không hợp ngữ nghĩa thực tế của câu.\n        "
+  },
+  {
+    "id": "ex13_5",
+    "type": "mcq",
+    "category": "Exercise 13: Choose the Correct Option",
+    "question": "The <b>(more / many)</b> people live in a city, the busier traffic there is.",
+    "options": [
+      "more",
+      "many"
+    ],
+    "correctText": "more",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu:</b> Càng có nhiều người sống ở thành phố, giao thông càng bận rộn. So sánh hơn của many là 'more'.<br>\n            <b>2. Phân tích các từ lựa chọn:</b> Xem xét giữa dạng nguyên thể, so sánh hơn hoặc so sánh nhất.<br>\n            <b>3. Tại sao chọn more?</b> Tuân thủ tuyệt đối quy tắc vàng của cấu trúc so sánh kép song hành: <i>The + so sánh hơn, the + so sánh hơn</i>.<br>\n            <b>4. Tại sao đáp án còn lại sai?</b> Vì sai cấu trúc so sánh hoặc không hợp ngữ nghĩa thực tế của câu.\n        "
+  },
+  {
+    "id": "ex13_6",
+    "type": "mcq",
+    "category": "Exercise 13: Choose the Correct Option",
+    "question": "The more historical landmarks a city has, the <b>(weakest / stronger)</b> sense of connection you might feel to the past.",
+    "options": [
+      "weakest",
+      "stronger"
+    ],
+    "correctText": "stronger",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu:</b> Một thành phố càng có nhiều di tích lịch sử, bạn càng cảm thấy kết nối mạnh mẽ hơn với quá khứ. Chọn 'stronger' (so sánh hơn).<br>\n            <b>2. Phân tích các từ lựa chọn:</b> Xem xét giữa dạng nguyên thể, so sánh hơn hoặc so sánh nhất.<br>\n            <b>3. Tại sao chọn stronger?</b> Tuân thủ tuyệt đối quy tắc vàng của cấu trúc so sánh kép song hành: <i>The + so sánh hơn, the + so sánh hơn</i>.<br>\n            <b>4. Tại sao đáp án còn lại sai?</b> Vì sai cấu trúc so sánh hoặc không hợp ngữ nghĩa thực tế của câu.\n        "
+  },
+  {
+    "id": "ex13_7",
+    "type": "mcq",
+    "category": "Exercise 13: Choose the Correct Option",
+    "question": "The <b>(more experienced / most experienced)</b> the team is, the more successful the project tends to be.",
+    "options": [
+      "more experienced",
+      "most experienced"
+    ],
+    "correctText": "more experienced",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu:</b> Đội ngũ càng có nhiều kinh nghiệm, dự án càng có xu hướng thành công. Dùng 'more experienced'.<br>\n            <b>2. Phân tích các từ lựa chọn:</b> Xem xét giữa dạng nguyên thể, so sánh hơn hoặc so sánh nhất.<br>\n            <b>3. Tại sao chọn more experienced?</b> Tuân thủ tuyệt đối quy tắc vàng của cấu trúc so sánh kép song hành: <i>The + so sánh hơn, the + so sánh hơn</i>.<br>\n            <b>4. Tại sao đáp án còn lại sai?</b> Vì sai cấu trúc so sánh hoặc không hợp ngữ nghĩa thực tế của câu.\n        "
+  },
+  {
+    "id": "ex13_8",
+    "type": "mcq",
+    "category": "Exercise 13: Choose the Correct Option",
+    "question": "The more expensive an apartment is, the <b>(less / much)</b> likely it is to be in a central location. (Note context: usually central is more expensive, but based on grammar/text context, let's provide chosen options)",
+    "options": [
+      "less",
+      "much"
+    ],
+    "correctText": "less",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu:</b> Căn hộ càng đắt thì khả năng nó nằm ngoài trung tâm càng ít đi (hoặc ngược lại tùy câu gốc, cấu trúc ở đây so sánh hơn với less).<br>\n            <b>2. Phân tích các từ lựa chọn:</b> Xem xét giữa dạng nguyên thể, so sánh hơn hoặc so sánh nhất.<br>\n            <b>3. Tại sao chọn less?</b> Tuân thủ tuyệt đối quy tắc vàng của cấu trúc so sánh kép song hành: <i>The + so sánh hơn, the + so sánh hơn</i>.<br>\n            <b>4. Tại sao đáp án còn lại sai?</b> Vì sai cấu trúc so sánh hoặc không hợp ngữ nghĩa thực tế của câu.\n        "
+  },
+  {
+    "id": "ex13_9",
+    "type": "mcq",
+    "category": "Exercise 13: Choose the Correct Option",
+    "question": "The <b>(many / fewer)</b> tourists there are, the less crowded the museums become.",
+    "options": [
+      "many",
+      "fewer"
+    ],
+    "correctText": "fewer",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu:</b> Càng ít khách du lịch, bảo tàng càng ít đông đúc. 'Fewer' là so sánh hơn của few.<br>\n            <b>2. Phân tích các từ lựa chọn:</b> Xem xét giữa dạng nguyên thể, so sánh hơn hoặc so sánh nhất.<br>\n            <b>3. Tại sao chọn fewer?</b> Tuân thủ tuyệt đối quy tắc vàng của cấu trúc so sánh kép song hành: <i>The + so sánh hơn, the + so sánh hơn</i>.<br>\n            <b>4. Tại sao đáp án còn lại sai?</b> Vì sai cấu trúc so sánh hoặc không hợp ngữ nghĩa thực tế của câu.\n        "
+  },
+  {
+    "id": "ex13_10",
+    "type": "mcq",
+    "category": "Exercise 13: Choose the Correct Option",
+    "question": "The more patient the teacher is, <b>(the more engaged / more engaged)</b> the students become in learning.",
+    "options": [
+      "the more engaged",
+      "more engaged"
+    ],
+    "correctText": "the more engaged",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu:</b> Giáo viên càng kiên nhẫn, học sinh càng tham gia tích cực vào việc học. Cần có từ 'the' ở đầu vế thứ hai.<br>\n            <b>2. Phân tích các từ lựa chọn:</b> Xem xét giữa dạng nguyên thể, so sánh hơn hoặc so sánh nhất.<br>\n            <b>3. Tại sao chọn the more engaged?</b> Tuân thủ tuyệt đối quy tắc vàng của cấu trúc so sánh kép song hành: <i>The + so sánh hơn, the + so sánh hơn</i>.<br>\n            <b>4. Tại sao đáp án còn lại sai?</b> Vì sai cấu trúc so sánh hoặc không hợp ngữ nghĩa thực tế của câu.\n        "
+  },
+  {
+    "id": "ex13_11",
+    "type": "mcq",
+    "category": "Exercise 13: Choose the Correct Option",
+    "question": "The less noise there is in the city, the <b>(easier / difficult)</b> it can be to get a good night’s sleep.",
+    "options": [
+      "easier",
+      "difficult"
+    ],
+    "correctText": "easier",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu:</b> Càng ít tiếng ồn trong thành phố, việc có một giấc ngủ ngon càng dễ dàng hơn. Dùng dạng so sánh hơn 'easier'.<br>\n            <b>2. Phân tích các từ lựa chọn:</b> Xem xét giữa dạng nguyên thể, so sánh hơn hoặc so sánh nhất.<br>\n            <b>3. Tại sao chọn easier?</b> Tuân thủ tuyệt đối quy tắc vàng của cấu trúc so sánh kép song hành: <i>The + so sánh hơn, the + so sánh hơn</i>.<br>\n            <b>4. Tại sao đáp án còn lại sai?</b> Vì sai cấu trúc so sánh hoặc không hợp ngữ nghĩa thực tế của câu.\n        "
+  },
+  {
+    "id": "ex13_12",
+    "type": "mcq",
+    "category": "Exercise 13: Choose the Correct Option",
+    "question": "The <b>(less / heavier)</b> traffic there is, the shorter time it takes to get around.",
+    "options": [
+      "less",
+      "heavier"
+    ],
+    "correctText": "less",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu:</b> Giao thông càng ít/giảm đi, thời gian đi lại xung quanh càng ngắn hơn. Chọn 'less' để phù hợp nghĩa với 'shorter time'.<br>\n            <b>2. Phân tích các từ lựa chọn:</b> Xem xét giữa dạng nguyên thể, so sánh hơn hoặc so sánh nhất.<br>\n            <b>3. Tại sao chọn less?</b> Tuân thủ tuyệt đối quy tắc vàng của cấu trúc so sánh kép song hành: <i>The + so sánh hơn, the + so sánh hơn</i>.<br>\n            <b>4. Tại sao đáp án còn lại sai?</b> Vì sai cấu trúc so sánh hoặc không hợp ngữ nghĩa thực tế của câu.\n        "
+  },
+  {
+    "id": "ex13_13",
+    "type": "mcq",
+    "category": "Exercise 13: Choose the Correct Option",
+    "question": "The more enthusiastic the audience is, the <b>(more energised / energised)</b> the performer becomes.",
+    "options": [
+      "more energised",
+      "energised"
+    ],
+    "correctText": "more energised",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu:</b> Khán giả càng nhiệt tình, người biểu diễn càng trở nên tràn đầy năng lượng hơn. Cần dùng 'more energised'.<br>\n            <b>2. Phân tích các từ lựa chọn:</b> Xem xét giữa dạng nguyên thể, so sánh hơn hoặc so sánh nhất.<br>\n            <b>3. Tại sao chọn more energised?</b> Tuân thủ tuyệt đối quy tắc vàng của cấu trúc so sánh kép song hành: <i>The + so sánh hơn, the + so sánh hơn</i>.<br>\n            <b>4. Tại sao đáp án còn lại sai?</b> Vì sai cấu trúc so sánh hoặc không hợp ngữ nghĩa thực tế của câu.\n        "
+  },
+  {
+    "id": "ex13_14",
+    "type": "mcq",
+    "category": "Exercise 13: Choose the Correct Option",
+    "question": "<b>(The more / The most)</b> you walk in the city at night, the more important it is to be aware of your surroundings.",
+    "options": [
+      "The more",
+      "The most"
+    ],
+    "correctText": "The more",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu:</b> Bạn càng đi bộ trong thành phố vào ban đêm nhiều, việc nhận biết môi trường xung quanh càng quan trọng. Chọn 'The more'.<br>\n            <b>2. Phân tích các từ lựa chọn:</b> Xem xét giữa dạng nguyên thể, so sánh hơn hoặc so sánh nhất.<br>\n            <b>3. Tại sao chọn The more?</b> Tuân thủ tuyệt đối quy tắc vàng của cấu trúc so sánh kép song hành: <i>The + so sánh hơn, the + so sánh hơn</i>.<br>\n            <b>4. Tại sao đáp án còn lại sai?</b> Vì sai cấu trúc so sánh hoặc không hợp ngữ nghĩa thực tế của câu.\n        "
+  },
+  {
+    "id": "ex13_15",
+    "type": "mcq",
+    "category": "Exercise 13: Choose the Correct Option",
+    "question": "The <b>(closer / closest)</b> you live in the city center, the more expensive the rent is likely to be.",
+    "options": [
+      "closer",
+      "closest"
+    ],
+    "correctText": "closer",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu:</b> Bạn càng sống gần trung tâm thành phố, giá thuê nhà càng có khả năng đắt đỏ hơn. Chọn dạng so sánh hơn 'closer'.<br>\n            <b>2. Phân tích các từ lựa chọn:</b> Xem xét giữa dạng nguyên thể, so sánh hơn hoặc so sánh nhất.<br>\n            <b>3. Tại sao chọn closer?</b> Tuân thủ tuyệt đối quy tắc vàng của cấu trúc so sánh kép song hành: <i>The + so sánh hơn, the + so sánh hơn</i>.<br>\n            <b>4. Tại sao đáp án còn lại sai?</b> Vì sai cấu trúc so sánh hoặc không hợp ngữ nghĩa thực tế của câu.\n        "
+  },
+  {
+    "id": "ex14_1",
+    "type": "gap_fill",
+    "category": "Exercise 14: Word Form (Biến đổi hình thái từ)",
+    "question": "Many city dwellers appreciate the convenience of public transportation, but sometimes crowded buses and trains lack the ___ (1) ___ of a private car. (comfortable)",
+    "options": [
+      "comfort",
+      "crowded",
+      "unreliable",
+      "construction",
+      "attractively",
+      "lively",
+      "peaceful",
+      "pollutants",
+      "convenience",
+      "dangerous"
+    ],
+    "correctText": "comfort",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu gốc:</b> Nhiều cư dân thành phố đánh giá cao sự tiện lợi của giao thông công cộng, nhưng đôi khi xe buýt và tàu hỏa đông đúc lại thiếu đi sự thoải mái (comfort - danh từ đứng sau mạo từ the) của một chiếc xe hơi riêng.<br>\n            <b>2. Vị trí ngữ pháp cần điền:</b> Xác định danh từ, tính từ, trạng từ hay động từ dựa vào cấu trúc câu bao quanh chỗ trống.<br>\n            <b>3. Tại sao chọn comfort?</b> Biến đổi đúng gốc từ trong ngoặc để tạo ra từ loại phù hợp với vị trí và ngữ cảnh ý nghĩa câu văn.<br>\n            <b>4. Tại sao các hình thái khác của từ loại đó sai?</b> Vì đặt vào sẽ bị lệch cấu trúc ngữ pháp nghiêm trọng hoặc phản ý nghĩa cần truyền tải.\n        "
+  },
+  {
+    "id": "ex14_2",
+    "type": "gap_fill",
+    "category": "Exercise 14: Word Form (Biến đổi hình thái từ)",
+    "question": "The streets during rush hour can be incredibly ___ (2) ___, with people hurrying to work or school. (crowd)",
+    "options": [
+      "comfort",
+      "crowded",
+      "unreliable",
+      "construction",
+      "attractively",
+      "lively",
+      "peaceful",
+      "pollutants",
+      "convenience",
+      "dangerous"
+    ],
+    "correctText": "crowded",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu gốc:</b> Đường phố trong giờ cao điểm có thể vô cùng đông đúc (crowded - tính từ đứng sau trạng từ mức độ incredibly để bổ nghĩa cho chủ ngữ streets).<br>\n            <b>2. Vị trí ngữ pháp cần điền:</b> Xác định danh từ, tính từ, trạng từ hay động từ dựa vào cấu trúc câu bao quanh chỗ trống.<br>\n            <b>3. Tại sao chọn crowded?</b> Biến đổi đúng gốc từ trong ngoặc để tạo ra từ loại phù hợp với vị trí và ngữ cảnh ý nghĩa câu văn.<br>\n            <b>4. Tại sao các hình thái khác của từ loại đó sai?</b> Vì đặt vào sẽ bị lệch cấu trúc ngữ pháp nghiêm trọng hoặc phản ý nghĩa cần truyền tải.\n        "
+  },
+  {
+    "id": "ex14_3",
+    "type": "gap_fill",
+    "category": "Exercise 14: Word Form (Biến đổi hình thái từ)",
+    "question": "Unfortunately, the city's public Wi-Fi network is quite ___ (3) ___; it frequently disconnects without warning. (rely)",
+    "options": [
+      "comfort",
+      "crowded",
+      "unreliable",
+      "construction",
+      "attractively",
+      "lively",
+      "peaceful",
+      "pollutants",
+      "convenience",
+      "dangerous"
+    ],
+    "correctText": "unreliable",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu gốc:</b> Thật không may, mạng Wi-Fi công cộng của thành phố khá không đáng tin cậy (unreliable - tính từ mang nghĩa phủ định dựa vào vế thường xuyên mất kết nối).<br>\n            <b>2. Vị trí ngữ pháp cần điền:</b> Xác định danh từ, tính từ, trạng từ hay động từ dựa vào cấu trúc câu bao quanh chỗ trống.<br>\n            <b>3. Tại sao chọn unreliable?</b> Biến đổi đúng gốc từ trong ngoặc để tạo ra từ loại phù hợp với vị trí và ngữ cảnh ý nghĩa câu văn.<br>\n            <b>4. Tại sao các hình thái khác của từ loại đó sai?</b> Vì đặt vào sẽ bị lệch cấu trúc ngữ pháp nghiêm trọng hoặc phản ý nghĩa cần truyền tải.\n        "
+  },
+  {
+    "id": "ex14_4",
+    "type": "gap_fill",
+    "category": "Exercise 14: Word Form (Biến đổi hình thái từ)",
+    "question": "The skyline is constantly changing due to ongoing ___ (4) ___ projects, as new buildings rise alongside older ones. (construct)",
+    "options": [
+      "comfort",
+      "crowded",
+      "unreliable",
+      "construction",
+      "attractively",
+      "lively",
+      "peaceful",
+      "pollutants",
+      "convenience",
+      "dangerous"
+    ],
+    "correctText": "construction",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu gốc:</b> Đường chân trời liên tục thay đổi do các dự án xây dựng (construction projects - danh từ ghép) đang diễn ra.<br>\n            <b>2. Vị trí ngữ pháp cần điền:</b> Xác định danh từ, tính từ, trạng từ hay động từ dựa vào cấu trúc câu bao quanh chỗ trống.<br>\n            <b>3. Tại sao chọn construction?</b> Biến đổi đúng gốc từ trong ngoặc để tạo ra từ loại phù hợp với vị trí và ngữ cảnh ý nghĩa câu văn.<br>\n            <b>4. Tại sao các hình thái khác của từ loại đó sai?</b> Vì đặt vào sẽ bị lệch cấu trúc ngữ pháp nghiêm trọng hoặc phản ý nghĩa cần truyền tải.\n        "
+  },
+  {
+    "id": "ex14_5",
+    "type": "gap_fill",
+    "category": "Exercise 14: Word Form (Biến đổi hình thái từ)",
+    "question": "The city's parks are ___ (5) ___ landscaped, providing green spaces for residents to relax and unwind. (attract)",
+    "options": [
+      "comfort",
+      "crowded",
+      "unreliable",
+      "construction",
+      "attractively",
+      "lively",
+      "peaceful",
+      "pollutants",
+      "convenience",
+      "dangerous"
+    ],
+    "correctText": "attractively",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu gốc:</b> Các công viên của thành phố được thiết kế cảnh quan một cách thu hút/đẹp mắt (attractively - trạng từ đứng trước bổ nghĩa cho động từ phân từ dạng bị động landscaped).<br>\n            <b>2. Vị trí ngữ pháp cần điền:</b> Xác định danh từ, tính từ, trạng từ hay động từ dựa vào cấu trúc câu bao quanh chỗ trống.<br>\n            <b>3. Tại sao chọn attractively?</b> Biến đổi đúng gốc từ trong ngoặc để tạo ra từ loại phù hợp với vị trí và ngữ cảnh ý nghĩa câu văn.<br>\n            <b>4. Tại sao các hình thái khác của từ loại đó sai?</b> Vì đặt vào sẽ bị lệch cấu trúc ngữ pháp nghiêm trọng hoặc phản ý nghĩa cần truyền tải.\n        "
+  },
+  {
+    "id": "ex14_6",
+    "type": "gap_fill",
+    "category": "Exercise 14: Word Form (Biến đổi hình thái từ)",
+    "question": "The nightlife in the city is incredibly ___ (6) ___, with bars, clubs, and live music venues open until the early hours. (live)",
+    "options": [
+      "comfort",
+      "crowded",
+      "unreliable",
+      "construction",
+      "attractively",
+      "lively",
+      "peaceful",
+      "pollutants",
+      "convenience",
+      "dangerous"
+    ],
+    "correctText": "lively",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu gốc:</b> Cuộc sống về đêm ở thành phố vô cùng sống động/nhộn nhịp (lively - tính từ đứng sau cụm trạng từ incredibly).<br>\n            <b>2. Vị trí ngữ pháp cần điền:</b> Xác định danh từ, tính từ, trạng từ hay động từ dựa vào cấu trúc câu bao quanh chỗ trống.<br>\n            <b>3. Tại sao chọn lively?</b> Biến đổi đúng gốc từ trong ngoặc để tạo ra từ loại phù hợp với vị trí và ngữ cảnh ý nghĩa câu văn.<br>\n            <b>4. Tại sao các hình thái khác của từ loại đó sai?</b> Vì đặt vào sẽ bị lệch cấu trúc ngữ pháp nghiêm trọng hoặc phản ý nghĩa cần truyền tải.\n        "
+  },
+  {
+    "id": "ex14_7",
+    "type": "gap_fill",
+    "category": "Exercise 14: Word Form (Biến đổi hình thái từ)",
+    "question": "Despite the hustle and bustle, there are ___ (7) ___ corners in the city, like the serene botanical garden. (peace)",
+    "options": [
+      "comfort",
+      "crowded",
+      "unreliable",
+      "construction",
+      "attractively",
+      "lively",
+      "peaceful",
+      "pollutants",
+      "convenience",
+      "dangerous"
+    ],
+    "correctText": "peaceful",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu gốc:</b> Bất chấp sự hối hả và nhộn nhịp, vẫn có những góc yên bình (peaceful - tính từ bổ nghĩa cho danh từ corners) trong thành phố.<br>\n            <b>2. Vị trí ngữ pháp cần điền:</b> Xác định danh từ, tính từ, trạng từ hay động từ dựa vào cấu trúc câu bao quanh chỗ trống.<br>\n            <b>3. Tại sao chọn peaceful?</b> Biến đổi đúng gốc từ trong ngoặc để tạo ra từ loại phù hợp với vị trí và ngữ cảnh ý nghĩa câu văn.<br>\n            <b>4. Tại sao các hình thái khác của từ loại đó sai?</b> Vì đặt vào sẽ bị lệch cấu trúc ngữ pháp nghiêm trọng hoặc phản ý nghĩa cần truyền tải.\n        "
+  },
+  {
+    "id": "ex14_8",
+    "type": "gap_fill",
+    "category": "Exercise 14: Word Form (Biến đổi hình thái từ)",
+    "question": "Air pollution from traffic is a major concern, and efforts are being made to reduce ___ (8) ___ in the city. (pollutants)",
+    "options": [
+      "comfort",
+      "crowded",
+      "unreliable",
+      "construction",
+      "attractively",
+      "lively",
+      "peaceful",
+      "pollutants",
+      "convenience",
+      "dangerous"
+    ],
+    "correctText": "pollutants",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu gốc:</b> Ô nhiễm không khí từ giao thông là một mối lo ngại lớn, và các nỗ lực đang được thực hiện để giảm thiểu các chất gây ô nhiễm (pollutants - danh từ số nhiều chỉ tác nhân).<br>\n            <b>2. Vị trí ngữ pháp cần điền:</b> Xác định danh từ, tính từ, trạng từ hay động từ dựa vào cấu trúc câu bao quanh chỗ trống.<br>\n            <b>3. Tại sao chọn pollutants?</b> Biến đổi đúng gốc từ trong ngoặc để tạo ra từ loại phù hợp với vị trí và ngữ cảnh ý nghĩa câu văn.<br>\n            <b>4. Tại sao các hình thái khác của từ loại đó sai?</b> Vì đặt vào sẽ bị lệch cấu trúc ngữ pháp nghiêm trọng hoặc phản ý nghĩa cần truyền tải.\n        "
+  },
+  {
+    "id": "ex14_9",
+    "type": "gap_fill",
+    "category": "Exercise 14: Word Form (Biến đổi hình thái từ)",
+    "question": "Living near grocery stores, pharmacies, and restaurants offers great ___ (9) ___ for city dwellers. (convenient)",
+    "options": [
+      "comfort",
+      "crowded",
+      "unreliable",
+      "construction",
+      "attractively",
+      "lively",
+      "peaceful",
+      "pollutants",
+      "convenience",
+      "dangerous"
+    ],
+    "correctText": "convenience",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu gốc:</b> Sống gần các cửa hàng tạp hóa, nhà thuốc và nhà hàng mang lại sự tiện lợi (convenience - danh từ đóng vai trò tân ngữ sau tính từ great) lớn cho cư dân.<br>\n            <b>2. Vị trí ngữ pháp cần điền:</b> Xác định danh từ, tính từ, trạng từ hay động từ dựa vào cấu trúc câu bao quanh chỗ trống.<br>\n            <b>3. Tại sao chọn convenience?</b> Biến đổi đúng gốc từ trong ngoặc để tạo ra từ loại phù hợp với vị trí và ngữ cảnh ý nghĩa câu văn.<br>\n            <b>4. Tại sao các hình thái khác của từ loại đó sai?</b> Vì đặt vào sẽ bị lệch cấu trúc ngữ pháp nghiêm trọng hoặc phản ý nghĩa cần truyền tải.\n        "
+  },
+  {
+    "id": "ex14_10",
+    "type": "gap_fill",
+    "category": "Exercise 14: Word Form (Biến đổi hình thái từ)",
+    "question": "Some neighborhoods can be ___ (10) ___, especially after dark, so it's essential to stay alert and take precautions. (endanger)",
+    "options": [
+      "comfort",
+      "crowded",
+      "unreliable",
+      "construction",
+      "attractively",
+      "lively",
+      "peaceful",
+      "pollutants",
+      "convenience",
+      "dangerous"
+    ],
+    "correctText": "dangerous",
+    "explanation": "\n            <div class=\"exp-title\">🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div>\n            <b>1. Dịch nghĩa toàn câu gốc:</b> Một số khu dân cư có thể nguy hiểm (dangerous - tính từ đứng sau động từ khuyết thiếu cụm can be), đặc biệt là sau khi trời tối.<br>\n            <b>2. Vị trí ngữ pháp cần điền:</b> Xác định danh từ, tính từ, trạng từ hay động từ dựa vào cấu trúc câu bao quanh chỗ trống.<br>\n            <b>3. Tại sao chọn dangerous?</b> Biến đổi đúng gốc từ trong ngoặc để tạo ra từ loại phù hợp với vị trí và ngữ cảnh ý nghĩa câu văn.<br>\n            <b>4. Tại sao các hình thái khác của từ loại đó sai?</b> Vì đặt vào sẽ bị lệch cấu trúc ngữ pháp nghiêm trọng hoặc phản ý nghĩa cần truyền tải.\n        "
+  }
+];
+
+        let userAnswers = {};
+        let currentActiveGapBlank = null;
+        let shuffledQuestions = [];
+        let audioCtxInstance = null;
+
+        function initAudio() {
+            if (!audioCtxInstance) { audioCtxInstance = new (window.AudioContext || window.webkitAudioContext)(); }
+        }
+
+        function playSound(type) {
+            try {
+                initAudio();
+                const ctx = audioCtxInstance;
+                const now = ctx.currentTime;
+                if (type === 'correct') {
+                    const osc = ctx.createOscillator(); const gain = ctx.createGain();
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.setValueAtTime(659.25, now + 0.08); osc.frequency.setValueAtTime(783.99, now + 0.16);
+                    gain.gain.setValueAtTime(0.15, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                    osc.connect(gain); gain.connect(ctx.destination); osc.start(now); osc.stop(now + 0.35);
+                } else {
+                    const osc = ctx.createOscillator(); const gain = ctx.createGain();
+                    osc.type = 'triangle'; osc.frequency.setValueAtTime(261.63, now);
+                    osc.frequency.setValueAtTime(220.00, now + 0.1); osc.frequency.setValueAtTime(174.61, now + 0.2);
+                    gain.gain.setValueAtTime(0.2, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+                    osc.connect(gain); gain.connect(ctx.destination); osc.start(now); osc.stop(now + 0.4);
+                }
+            } catch(e) {}
+        }
+
+        function triggerConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            let particles = [];
+            const palette = ['#FFC107', '#FF5722', '#E91E63', '#9C27B0', '#00BCD4', '#00D26A', '#FF4757'];
+            for (let i = 0; i < 70; i++) {
+                particles.push({
+                    x: window.innerWidth / 2, y: window.innerHeight / 2,
+                    size: Math.random() * 6 + 5, color: palette[Math.floor(Math.random() * palette.length)],
+                    speedX: Math.random() * 12 - 6, speedY: Math.random() * -12 - 4,
+                    gravity: 0.35, rotation: Math.random() * 360, rotationSpeed: Math.random() * 8 - 4, opacity: 1
+                });
+            }
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let live = false;
+                particles.forEach(p => {
+                    p.speedY += p.gravity; p.x += p.speedX; p.y += p.speedY; p.rotation += p.rotationSpeed;
+                    if (p.y < canvas.height && p.opacity > 0) {
+                        live = true; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rotation * Math.PI / 180);
+                        ctx.fillStyle = p.color; ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size); ctx.restore();
+                    }
+                });
+                if (live) requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        function shuffleArray(array) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function initQuiz() {
+            shuffledQuestions = originalQuestions.map(q => {
+                return { ...q, shuffledOptions: shuffleArray(q.options) };
+            });
+            renderQuiz();
+            updateProgressBar();
+        }
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-cards-wrapper');
+            container.innerHTML = '';
+            shuffledQuestions.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = 'quiz-card';
+                card.id = `card-q-${q.id}`;
+                let innerHTML = `<div class="category-badge">${q.category} - Câu ${idx + 1}</div>`;
+
+                if (q.type === 'gap_fill') {
+                    let baseText = q.question;
+                    let replacedText = baseText.replace("___ (1) ___", "______")
+                                               .replace("___ (2) ___", "______")
+                                               .replace("___ (3) ___", "______")
+                                               .replace("___ (4) ___", "______")
+                                               .replace("___ (5) ___", "______")
+                                               .replace("___ (6) ___", "______")
+                                               .replace("___ (7) ___", "______")
+                                               .replace("___ (8) ___", "______")
+                                               .replace("___ (9) ___", "______")
+                                               .replace("___ (10) ___", "______")
+                                               .replace("______", `<span id="blank-q-${q.id}" class="gap-blank" onclick="openGapPopup(this, '${q.id}')">???</span>`);
+                    innerHTML += `<div class="gap-sentence">${replacedText}</div>`;
+                } else {
+                    innerHTML += `<div class="question-text">${q.question}</div>`;
+                }
+
+                innerHTML += `<div class="options-grid">`;
+                q.shuffledOptions.forEach((opt, oIdx) => {
+                    const prefix = String.fromCharCode(65 + oIdx);
+                    innerHTML += `
+                        <button class="option-btn" data-opt-text="${opt.replace(/"/g, '&quot;')}" onclick="handleSelectOption(this, '${q.id}', '${opt.replace(/'/g, "\\'")}')">
+                            <span class="option-prefix">${prefix}</span>
+                            <span class="option-body-text">${opt}</span>
+                        </button>
+                    `;
+                });
+                innerHTML += `</div>`;
+                innerHTML += `<div class="explanation-box" id="explanation-${q.id}">${q.explanation}</div>`;
+                card.innerHTML = innerHTML;
+                container.appendChild(card);
+            });
+        }
+
+        function handleSelectOption(btnElement, qId, selectedText) {
+            if (userAnswers[qId]) return;
+            const currentQuestion = shuffledQuestions.find(q => q.id === qId);
+            const isCorrect = (selectedText === currentQuestion.correctText);
+            userAnswers[qId] = { selected: selectedText, correct: isCorrect };
+
+            const card = document.getElementById(`card-q-${qId}`);
+            const buttons = card.querySelectorAll('.option-btn');
+            buttons.forEach(btn => {
+                btn.classList.add('disabled');
+                if (btn.getAttribute('data-opt-text') === currentQuestion.correctText) { btn.classList.add('correct'); }
+            });
+
+            if (isCorrect) {
+                btnElement.classList.add('correct'); playSound('correct'); triggerConfetti();
+            } else {
+                btnElement.classList.add('wrong'); card.classList.add('shake'); playSound('wrong');
+                setTimeout(() => card.classList.remove('shake'), 400);
+            }
+            document.getElementById(`explanation-${qId}`).style.display = 'block';
+            updateProgressBar();
+        }
+
+        function openGapPopup(blankElement, qId) {
+            if (userAnswers[qId]) return;
+            currentActiveGapBlank = blankElement;
+            const currentQuestion = shuffledQuestions.find(q => q.id === qId);
+            const popupContainer = document.getElementById('popup-options-container');
+            popupContainer.innerHTML = '';
+            currentQuestion.shuffledOptions.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'popup-opt-btn';
+                btn.innerHTML = opt;
+                btn.onclick = () => selectGapValue(qId, opt);
+                popupContainer.appendChild(btn);
+            });
+            document.getElementById('gap-popup').style.display = 'flex';
+        }
+
+        function selectGapValue(qId, selectedText) {
+            document.getElementById('gap-popup').style.display = 'none';
+            const currentQuestion = shuffledQuestions.find(q => q.id === qId);
+            const isCorrect = (selectedText === currentQuestion.correctText);
+            userAnswers[qId] = { selected: selectedText, correct: isCorrect };
+
+            const blank = currentActiveGapBlank;
+            blank.innerHTML = selectedText;
+            if (isCorrect) {
+                blank.className = "gap-blank filled-correct"; playSound('correct'); triggerConfetti();
+            } else {
+                blank.className = "gap-blank filled-wrong";
+                const card = document.getElementById(`card-q-${qId}`);
+                card.classList.add('shake'); playSound('wrong');
+                setTimeout(() => card.classList.remove('shake'), 400);
+            }
+
+            const cardElement = document.getElementById(`card-q-${qId}`);
+            cardElement.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.add('disabled');
+                if (btn.getAttribute('data-opt-text') === currentQuestion.correctText) btn.classList.add('correct');
+                else if (btn.getAttribute('data-opt-text') === selectedText) btn.classList.add('wrong');
+            });
+
+            document.getElementById(`explanation-${qId}`).style.display = 'block';
+            updateProgressBar();
+        }
+
+        function updateProgressBar() {
+            const percent = (Object.keys(userAnswers).length / shuffledQuestions.length) * 100;
+            document.getElementById('quiz-progress').style.width = `${percent}%`;
+        }
+
+        function showFinalScore() {
+            const total = shuffledQuestions.length;
+            let correctCount = 0;
+            Object.keys(userAnswers).forEach(qId => { if (userAnswers[qId].correct) correctCount++; });
+            const percentage = (correctCount / total) * 100;
+            let comment = "";
+
+            if (percentage < 50) {
+                comment = "Điểm lần này chưa cao lắm, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!";
+            } else if (percentage >= 60 && percentage <= 80) {
+                comment = "Con đã có tiến bộ khá ổn rồi, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!";
+            } else {
+                comment = "Làm tốt lắm, con cố gắng ring điểm 10 ở lần sau nha!";
+            }
+
+            document.getElementById('score-text').innerHTML = `${correctCount} / ${total}`;
+            document.getElementById('comment-text').innerHTML = `<b>Ms Lê Hằng nhận xét:</b><br>"${comment}"`;
+            document.getElementById('result-modal').style.display = 'flex';
+        }
+
+        function closeResultModal() { document.getElementById('result-modal').style.display = 'none'; }
+
+        window.onload = () => { initQuiz(); };
+    </script>
+</body>
+</html>
